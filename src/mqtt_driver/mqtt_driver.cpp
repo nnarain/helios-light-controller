@@ -19,14 +19,14 @@ namespace mqtt
 
         while(!client.connected()) 
         {
-            Serial.println("Attempting MQTT connection...");
+            Serial.println("[MQTT] Attempting MQTT connection...");
             // Random client ID
             String clientId = "esp-light:";
             clientId += String(random(0xFFFF), HEX);
 
             // attempt connection
             if (client.connect(clientId.c_str())) {
-                Serial.println("MQTT connected");
+                Serial.println("[MQTT] MQTT connected");
 
                 if (connection_callback_ != nullptr)
                 {
@@ -34,7 +34,7 @@ namespace mqtt
                 }
             }
             else {
-                Serial.print("mqtt connection failed: ");
+                Serial.print("[MQTT] mqtt connection failed: ");
                 Serial.println(client.state());
                 delay(5000);
             }
