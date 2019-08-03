@@ -16,6 +16,7 @@ namespace conf
     String getMqttBroker();
     uint16_t getMqttPort();
     int getLedCount();
+    String getPrefix();
 }
 
 #endif
