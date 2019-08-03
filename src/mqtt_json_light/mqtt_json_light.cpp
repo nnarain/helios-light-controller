@@ -2,6 +2,7 @@
 
 #include "../mqtt_driver/mqtt_driver.hpp"
 #include "../light_driver/light_driver.hpp"
+#include "../conf/conf.hpp"
 
 #include <ArduinoJson.hpp>
 
@@ -28,10 +29,11 @@ namespace
         }
     };
 
-    const char* cmd_topic = "/home/testlight/cmd";
-    const char* state_topic = "/home/testlight/state";
-    const char* cmd_brightness_topic = "/home/testlight/brightness_cmd";
-    const char* state_brightness_topic = "/home/testlight/brightness_state";
+    const char* CMD_TOPIC = "/cmd";
+    const char* state_topic = "/state";
+
+    String cmd_topic;
+    // String state_topic;
 
     Effect effect = Effect::SOLID;
     Color color;
@@ -40,12 +42,9 @@ namespace
 
     void mqttCallback(char* topic, byte* payload, unsigned int length)
     {
-        Serial.print("Recieved: ");
-        Serial.println(topic);
-
         String topic_str(topic);
 
-        if (topic_str == String(cmd_topic))
+        if (topic_str == cmd_topic)
         {
             deserializeJson(doc, payload);
 
@@ -84,9 +83,11 @@ namespace
 
     void connectionCallback()
     {
-        Serial.print("Subscribing to ");
-        Serial.println(cmd_topic);
-        mqtt::subscribe(cmd_topic);
+        const auto prefix = conf::getPrefix();
+        cmd_topic = prefix + String(CMD_TOPIC);
+
+        Serial.printf("[HASS] Subscribing to %s\n", cmd_topic.c_str());
+        mqtt::subscribe(cmd_topic.c_str());
     }
 }
 

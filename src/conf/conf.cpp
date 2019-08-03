@@ -214,4 +214,9 @@ namespace conf
         int led_count = root[KEY_COUNT].as<int>();
         return led_count;
     }
+
+    String getPrefix()
+    {
+        return root[KEY_PREFIX];
+    }
 }
