@@ -72,6 +72,7 @@ void loop()
     // spin
     mqtt::spin();
     lights::spin();
+    mqttjsonlight::spin();
   }
 
   // Spin conf to allow runtime configuration

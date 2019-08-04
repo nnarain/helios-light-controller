@@ -4,6 +4,7 @@
 namespace mqttjsonlight
 {
     void init();
+    void spin();
 }
 
 #endif
