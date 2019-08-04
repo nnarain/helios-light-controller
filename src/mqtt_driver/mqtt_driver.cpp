@@ -56,6 +56,11 @@ namespace mqtt
         client.subscribe(topic);
     }
 
+    void publish(const char* topic, const char* payload)
+    {
+        client.publish(topic, payload);
+    }
+
     void setMqttCallback(MqttCallback fn)
     {
         client.setCallback(fn);

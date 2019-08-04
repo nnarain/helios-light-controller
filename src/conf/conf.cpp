@@ -121,7 +121,6 @@ namespace conf
             char arg[64];
 
             String at_cmd = Serial.readString();
-            // Serial.printf("%s CMD: %s\n", log_prefix, at_cmd.c_str());
 
             sscanf(at_cmd.c_str(), "AT+%04s-%s", cmd, arg);
 
