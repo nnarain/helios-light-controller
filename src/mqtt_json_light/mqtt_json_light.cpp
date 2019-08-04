@@ -110,7 +110,7 @@ namespace
         String output;
         ArduinoJson::serializeJson(current_state, output);
 
-        mqtt::publish(state_topic.c_str(), output.c_str());
+        mqtt::publish(state_topic.c_str(), output.c_str(), true);
     }
 
     void mqttCallback(char* topic, byte* payload, unsigned int length)

@@ -15,7 +15,7 @@ namespace mqtt
     void spin();
 
     void subscribe(const char* topic);
-    void publish(const char* topic, const char* payload);
+    void publish(const char* topic, const char* payload, bool retained=false);
 
     void setMqttCallback(MqttCallback fn);
     void setConnectionCallback(ConnectionCallback fn);

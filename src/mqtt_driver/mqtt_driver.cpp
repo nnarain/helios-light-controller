@@ -56,9 +56,9 @@ namespace mqtt
         client.subscribe(topic);
     }
 
-    void publish(const char* topic, const char* payload)
+    void publish(const char* topic, const char* payload, bool retained)
     {
-        client.publish(topic, payload);
+        client.publish(topic, payload, retained);
     }
 
     void setMqttCallback(MqttCallback fn)
