@@ -64,10 +64,39 @@ namespace
         auto file = SPIFFS.open(CURRENT_STATE_FILE, "r");
         if (file)
         {
-            if (ArduinoJson::deserializeJson(current_state, file))
+            if (!ArduinoJson::deserializeJson(current_state, file))
+            {
+                const String state_str = current_state["state"];
+
+                if (state_str == "ON")
+                {
+                    lights::on();
+                }
+                else
+                {
+                    lights::off();
+                }
+
+                // Load the initial color
+                const auto r = current_state["color"]["r"].as<uint8_t>();
+                const auto g = current_state["color"]["g"].as<uint8_t>();
+                const auto b = current_state["color"]["b"].as<uint8_t>();
+
+                color.set(r, g, b);
+
+                // Load the effect
+                const String effect_str = current_state["effect"];
+
+                if (effect_str == "solid")
+                {
+                    effect = Effect::SOLID;
+                }
+            }
+            else
             {
                 Serial.printf("[HASS] Failed to load initial state\n");
             }
+            
         }
         else
         {
@@ -101,7 +130,6 @@ namespace
                     if (state == String("ON"))
                     {
                         lights::on();
-                        lights::setRGB(color.r, color.g, color.b);
                     }
                     else if (state == String("OFF"))
                     {
@@ -112,11 +140,11 @@ namespace
                 }
                 if (cmd.containsKey("color"))
                 {
-                    uint8_t r = cmd["color"]["r"].as<uint8_t>();
-                    uint8_t g = cmd["color"]["g"].as<uint8_t>();
-                    uint8_t b = cmd["color"]["b"].as<uint8_t>();
+                    const auto r = cmd["color"]["r"].as<uint8_t>();
+                    const auto g = cmd["color"]["g"].as<uint8_t>();
+                    const auto b = cmd["color"]["b"].as<uint8_t>();
 
-                    lights::setRGB(r, g, b);
+                    color.set(r, g, b);
 
                     current_state["color"] = cmd["color"];
                 }
@@ -147,8 +175,15 @@ namespace
         mqtt::subscribe(cmd_topic.c_str());
 
         // Publish the saved state
-        loadInitialState();
         publishState();
+    }
+
+    void effectSolid()
+    {
+        if (lights::isOn())
+        {
+            lights::setRGB(color.r, color.g, color.b);
+        }
     }
 }
 
@@ -158,5 +193,19 @@ namespace mqttjsonlight
     {
         mqtt::setMqttCallback(mqttCallback);
         mqtt::setConnectionCallback(connectionCallback);
+
+        loadInitialState();
+    }
+
+    void spin()
+    {
+        switch (effect)
+        {
+        case Effect::SOLID:
+            effectSolid();
+            break;
+        default:
+            break;
+        }
     }
 }

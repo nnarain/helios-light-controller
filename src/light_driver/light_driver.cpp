@@ -31,14 +31,14 @@ namespace lights
         enabled = false;
     }
 
-    bool is_on()
+    bool isOn()
     {
-        return is_on;
+        return enabled;
     }
 
     void spin()
     {
-        if (is_on)
+        if (enabled)
         {
             strip->show();
         }
