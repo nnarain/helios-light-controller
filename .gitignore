@@ -1,2 +1,9 @@
+# Python
 venv/*
 *.pyc
+
+# KiCAD
+*.bak
+*.csv
+*.tsv
+*.xml
