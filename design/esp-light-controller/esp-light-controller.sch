@@ -1,0 +1,351 @@
+EESchema Schematic File Version 4
+LIBS:accentlights-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Regulator_Linear:LD1117S12TR_SOT223 U1
+U 1 1 5C779D88
+P 3850 2450
+F 0 "U1" H 3850 2692 50  0000 C CNN
+F 1 "LD1117V33" H 3850 2601 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 3850 2650 50  0001 C CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000544.pdf" H 3950 2200 50  0001 C CNN
+	1    3850 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C779DC0
+P 3850 2850
+F 0 "#PWR?" H 3850 2600 50  0001 C CNN
+F 1 "GND" H 3855 2677 50  0000 C CNN
+F 2 "" H 3850 2850 50  0001 C CNN
+F 3 "" H 3850 2850 50  0001 C CNN
+	1    3850 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5C779E40
+P 3450 2300
+F 0 "#PWR?" H 3450 2150 50  0001 C CNN
+F 1 "+5V" H 3465 2473 50  0000 C CNN
+F 2 "" H 3450 2300 50  0001 C CNN
+F 3 "" H 3450 2300 50  0001 C CNN
+	1    3450 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4150 2450 4350 2450
+Wire Wire Line
+	3850 2850 3850 2750
+$Comp
+L ESP8266:ESP-01v090 U2
+U 1 1 5C77A165
+P 4400 3900
+F 0 "U2" H 4400 4415 50  0000 C CNN
+F 1 "ESP-01v090" H 4400 4324 50  0000 C CNN
+F 2 "" H 4400 3900 50  0001 C CNN
+F 3 "http://l0l.org.uk/2014/12/esp8266-modules-hardware-guide-gotta-catch-em-all/" H 4400 3900 50  0001 C CNN
+	1    4400 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C77A1F4
+P 5600 4300
+F 0 "#PWR?" H 5600 4050 50  0001 C CNN
+F 1 "GND" H 5605 4127 50  0000 C CNN
+F 2 "" H 5600 4300 50  0001 C CNN
+F 3 "" H 5600 4300 50  0001 C CNN
+	1    5600 4300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 3750 5600 3750
+Wire Wire Line
+	5600 3750 5600 4300
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5C77A349
+P 3150 3550
+F 0 "#PWR?" H 3150 3400 50  0001 C CNN
+F 1 "+3.3V" H 3165 3723 50  0000 C CNN
+F 2 "" H 3150 3550 50  0001 C CNN
+F 3 "" H 3150 3550 50  0001 C CNN
+	1    3150 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 4050 3150 4050
+Wire Wire Line
+	3150 4050 3150 3950
+$Comp
+L Connector_Generic:Conn_01x03 J1
+U 1 1 5C784B8A
+P 7900 2950
+F 0 "J1" H 7979 2992 50  0000 L CNN
+F 1 "WS2812b" H 7979 2901 50  0000 L CNN
+F 2 "" H 7900 2950 50  0001 C CNN
+F 3 "~" H 7900 2950 50  0001 C CNN
+	1    7900 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5C784C4E
+P 7550 2600
+F 0 "#PWR?" H 7550 2450 50  0001 C CNN
+F 1 "+5V" H 7565 2773 50  0000 C CNN
+F 2 "" H 7550 2600 50  0001 C CNN
+F 3 "" H 7550 2600 50  0001 C CNN
+	1    7550 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C784C7D
+P 7550 3300
+F 0 "#PWR?" H 7550 3050 50  0001 C CNN
+F 1 "GND" H 7555 3127 50  0000 C CNN
+F 2 "" H 7550 3300 50  0001 C CNN
+F 3 "" H 7550 3300 50  0001 C CNN
+	1    7550 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7700 3050 7550 3050
+Wire Wire Line
+	7550 3050 7550 3300
+Wire Wire Line
+	7700 2850 7550 2850
+Wire Wire Line
+	7550 2850 7550 2600
+$Comp
+L Connector_Generic:Conn_01x04 J2
+U 1 1 5C7850DB
+P 3850 1100
+F 0 "J2" V 3816 812 50  0000 R CNN
+F 1 "USB" V 3725 812 50  0000 R CNN
+F 2 "" H 3850 1100 50  0001 C CNN
+F 3 "~" H 3850 1100 50  0001 C CNN
+	1    3850 1100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5C78538F
+P 3450 1000
+F 0 "#PWR?" H 3450 850 50  0001 C CNN
+F 1 "+5V" H 3465 1173 50  0000 C CNN
+F 2 "" H 3450 1000 50  0001 C CNN
+F 3 "" H 3450 1000 50  0001 C CNN
+	1    3450 1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C7853C0
+P 4050 1500
+F 0 "#PWR?" H 4050 1250 50  0001 C CNN
+F 1 "GND" H 4055 1327 50  0000 C CNN
+F 2 "" H 4050 1500 50  0001 C CNN
+F 3 "" H 4050 1500 50  0001 C CNN
+	1    4050 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 1300 3450 1300
+Wire Wire Line
+	3450 1300 3450 1000
+Wire Wire Line
+	4050 1300 4050 1500
+Wire Wire Line
+	3550 2450 3450 2450
+Wire Wire Line
+	3450 2450 3450 2300
+Wire Wire Line
+	3450 3950 3150 3950
+Connection ~ 3150 3950
+Wire Wire Line
+	3150 3950 3150 3850
+Wire Wire Line
+	3450 3850 3150 3850
+Connection ~ 3150 3850
+Wire Wire Line
+	3150 3850 3150 3550
+Wire Wire Line
+	5350 3950 5450 3950
+Wire Wire Line
+	5450 3950 5450 3550
+$Comp
+L Transistor_FET:2N7000 Q1
+U 1 1 5C7CAA1B
+P 6600 3250
+F 0 "Q1" H 6805 3296 50  0000 L CNN
+F 1 "2N7000" H 6805 3205 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 6800 3175 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 6600 3250 50  0001 L CNN
+	1    6600 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5C7CAF7C
+P 6050 3600
+F 0 "R1" H 6120 3646 50  0000 L CNN
+F 1 "10k" H 6120 3555 50  0000 L CNN
+F 2 "" V 5980 3600 50  0001 C CNN
+F 3 "~" H 6050 3600 50  0001 C CNN
+	1    6050 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 3750 6050 3850
+Wire Wire Line
+	6050 3850 6700 3850
+Wire Wire Line
+	6400 3250 6050 3250
+Wire Wire Line
+	6050 3250 6050 3450
+Wire Wire Line
+	6700 3850 6700 3450
+$Comp
+L Device:R R2
+U 1 1 5C7CCA29
+P 6700 2650
+F 0 "R2" H 6770 2696 50  0000 L CNN
+F 1 "10k" H 6770 2605 50  0000 L CNN
+F 2 "" V 6630 2650 50  0001 C CNN
+F 3 "~" H 6700 2650 50  0001 C CNN
+	1    6700 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5C7CCE13
+P 6050 2950
+F 0 "#PWR?" H 6050 2800 50  0001 C CNN
+F 1 "+3.3V" H 6065 3123 50  0000 C CNN
+F 2 "" H 6050 2950 50  0001 C CNN
+F 3 "" H 6050 2950 50  0001 C CNN
+	1    6050 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 2950 6050 3250
+Connection ~ 6050 3250
+Wire Wire Line
+	6700 3050 6700 2950
+$Comp
+L power:+5V #PWR?
+U 1 1 5C7CD58C
+P 6700 2250
+F 0 "#PWR?" H 6700 2100 50  0001 C CNN
+F 1 "+5V" H 6715 2423 50  0000 C CNN
+F 2 "" H 6700 2250 50  0001 C CNN
+F 3 "" H 6700 2250 50  0001 C CNN
+	1    6700 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6700 2500 6700 2250
+Wire Wire Line
+	7700 2950 6700 2950
+Connection ~ 6700 2950
+Wire Wire Line
+	6700 2950 6700 2800
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5C7CE7F2
+P 4350 2300
+F 0 "#PWR?" H 4350 2150 50  0001 C CNN
+F 1 "+3.3V" H 4365 2473 50  0000 C CNN
+F 2 "" H 4350 2300 50  0001 C CNN
+F 3 "" H 4350 2300 50  0001 C CNN
+	1    4350 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 2450 4350 2300
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5C7CF6A7
+P 5450 3550
+F 0 "#PWR?" H 5450 3400 50  0001 C CNN
+F 1 "+3.3V" H 5465 3723 50  0000 C CNN
+F 2 "" H 5450 3550 50  0001 C CNN
+F 3 "" H 5450 3550 50  0001 C CNN
+	1    5450 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 3850 6050 3850
+Connection ~ 6050 3850
+NoConn ~ 5350 4050
+NoConn ~ 3450 3750
+NoConn ~ 3850 1300
+NoConn ~ 3950 1300
+Wire Notes Line
+	3300 700  4400 700 
+Wire Notes Line
+	4400 700  4400 1800
+Wire Notes Line
+	4400 1800 3300 1800
+Wire Notes Line
+	3300 1800 3300 700 
+Wire Notes Line
+	3300 2000 4500 2000
+Wire Notes Line
+	4500 2000 4500 3100
+Wire Notes Line
+	4500 3100 3300 3100
+Wire Notes Line
+	3300 3100 3300 2000
+Wire Notes Line
+	3000 3200 5800 3200
+Wire Notes Line
+	5800 3200 5800 4600
+Wire Notes Line
+	5800 4600 3000 4600
+Wire Notes Line
+	3000 4600 3000 3200
+Wire Notes Line
+	5900 4000 5900 2000
+Wire Notes Line
+	5900 2000 7200 2000
+Wire Notes Line
+	7200 2000 7200 4000
+Wire Notes Line
+	7200 4000 5900 4000
+Wire Notes Line
+	7400 2300 7400 3600
+Wire Notes Line
+	7400 3600 8400 3600
+Wire Notes Line
+	8400 3600 8400 2300
+Wire Notes Line
+	8400 2300 7400 2300
+Text Notes 4550 1250 0    50   ~ 0
+Power Supply - Female USB breakout
+Text Notes 4600 2600 0    50   ~ 0
+3.3V Source
+Text Notes 3850 4950 0    50   ~ 0
+ESP-01\n* CH_PD, RST. GPIO0 - pulled high\n* RX, TX - Not connected
+Text Notes 6000 1950 0    50   ~ 0
+3.3V to 5V Logic Level Shifter
+Text Notes 7450 2250 0    50   ~ 0
+WS2812b JST Connector
+$EndSCHEMATC
