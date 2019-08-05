@@ -29,5 +29,6 @@ version=1
 NetIExt=net
 [eeschema]
 version=1
-LibDir=
+LibDir=../kicad-libs
 [eeschema/libraries]
+
