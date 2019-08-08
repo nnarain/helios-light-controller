@@ -20,7 +20,7 @@ U 1 1 5C779D88
 P 3850 2450
 F 0 "U1" H 3850 2692 50  0000 C CNN
 F 1 "LD1117V33" H 3850 2601 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 3850 2650 50  0001 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 3850 2650 50  0001 C CNN
 F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000544.pdf" H 3950 2200 50  0001 C CNN
 	1    3850 2450
 	1    0    0    -1  
@@ -57,7 +57,7 @@ U 1 1 5C77A165
 P 4400 3900
 F 0 "U2" H 4400 4415 50  0000 C CNN
 F 1 "ESP-01v090" H 4400 4324 50  0000 C CNN
-F 2 "" H 4400 3900 50  0001 C CNN
+F 2 "kicad-ESP8266:ESP-01" H 4400 3900 50  0001 C CNN
 F 3 "http://l0l.org.uk/2014/12/esp8266-modules-hardware-guide-gotta-catch-em-all/" H 4400 3900 50  0001 C CNN
 	1    4400 3900
 	1    0    0    -1  
@@ -98,7 +98,7 @@ U 1 1 5C784B8A
 P 7900 2950
 F 0 "J1" H 7979 2992 50  0000 L CNN
 F 1 "WS2812b" H 7979 2901 50  0000 L CNN
-F 2 "" H 7900 2950 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7900 2950 50  0001 C CNN
 F 3 "~" H 7900 2950 50  0001 C CNN
 	1    7900 2950
 	1    0    0    -1  
@@ -139,7 +139,7 @@ U 1 1 5C7850DB
 P 3850 1100
 F 0 "J2" V 3850 1400 50  0000 R CNN
 F 1 "USB" V 3750 1450 50  0000 R CNN
-F 2 "" H 3850 1100 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 3850 1100 50  0001 C CNN
 F 3 "~" H 3850 1100 50  0001 C CNN
 	1    3850 1100
 	0    -1   -1   0   
@@ -201,7 +201,7 @@ U 1 1 5C7CAF7C
 P 6050 3600
 F 0 "R1" H 6120 3646 50  0000 L CNN
 F 1 "10k" H 6120 3555 50  0000 L CNN
-F 2 "" V 5980 3600 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 5980 3600 50  0001 C CNN
 F 3 "~" H 6050 3600 50  0001 C CNN
 	1    6050 3600
 	1    0    0    -1  
@@ -222,7 +222,7 @@ U 1 1 5C7CCA29
 P 6700 2650
 F 0 "R2" H 6770 2696 50  0000 L CNN
 F 1 "10k" H 6770 2605 50  0000 L CNN
-F 2 "" V 6630 2650 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 6630 2650 50  0001 C CNN
 F 3 "~" H 6700 2650 50  0001 C CNN
 	1    6700 2650
 	1    0    0    -1  
