@@ -3,6 +3,7 @@
 #include "../mqtt_driver/mqtt_driver.hpp"
 #include "../light_driver/light_driver.hpp"
 #include "../conf/conf.hpp"
+#include "../logging/logging.hpp"
 
 #include <ArduinoJson.hpp>
 #include <FS.h>
@@ -30,6 +31,8 @@ namespace
         }
     };
 
+    const char* module = "HASS";
+
     const char* CMD_TOPIC = "/cmd";
     const char* STATE_TOPIC = "/state";
 
@@ -53,7 +56,7 @@ namespace
         }
         else
         {
-            Serial.printf("[HASS] Unable to update saved state \n");
+            logger::log(module, "Unable to update saved state");
         }
         
         file.close();
@@ -94,13 +97,13 @@ namespace
             }
             else
             {
-                Serial.printf("[HASS] Failed to load initial state\n");
+                logger::log(module, "Failed to load initial state");
             }
             
         }
         else
         {
-            Serial.printf("[HASS] Failed to publish initial state\n");
+            logger::log(module, "Failed to publish initial state");
         }
         file.close();
     }
@@ -168,10 +171,10 @@ namespace
         cmd_topic = prefix + String(CMD_TOPIC);
         state_topic = prefix + String(STATE_TOPIC);
 
-        Serial.printf("[HASS] Command Topic: %s\n", cmd_topic.c_str());
-        Serial.printf("[HASS] State Topic: %s\n", state_topic.c_str());
+        logger::log(module, "Command Topic: %s", cmd_topic.c_str());
+        logger::log(module, "State Topic: %s", state_topic.c_str());
 
-        Serial.printf("[HASS] Subscribing to %s\n", cmd_topic.c_str());
+        logger::log(module, "Subscribing to %s", cmd_topic.c_str());
         mqtt::subscribe(cmd_topic.c_str());
 
         // Publish the saved state

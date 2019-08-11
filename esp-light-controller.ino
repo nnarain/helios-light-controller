@@ -12,6 +12,7 @@
 #include "src/light_driver/light_driver.hpp"
 #include "src/mqtt_json_light/mqtt_json_light.hpp"
 #include "src/conf/conf.hpp"
+#include "src/logging/logging.hpp"
 
 namespace
 {
@@ -33,7 +34,7 @@ void loop()
   if (!configuration_ready && conf::found())
   {
     // System configuration is now ready
-    Serial.println("[MAIN] System config is ready");
+    logger::log("MAIN", "System config is ready");
     configuration_ready = true;
   }
 
@@ -55,7 +56,7 @@ void loop()
 
     // System is initialized
     system_initialized = true;
-    Serial.println("[MAIN] System initialized");
+    logger::log("MAIN", "System initialized");
   }
 
   if (system_initialized)

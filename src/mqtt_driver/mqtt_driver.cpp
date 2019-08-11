@@ -1,10 +1,13 @@
 #include "mqtt_driver.hpp"
+#include "../logging/logging.hpp"
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
 namespace
 {
+    const char* module = "MQTT";
+
     WiFiClient wifi;
     PubSubClient client(wifi);
 
@@ -19,14 +22,14 @@ namespace mqtt
 
         while(!client.connected()) 
         {
-            Serial.println("[MQTT] Attempting MQTT connection...");
+            logger::log(module, "Attempting MQTT connection...");
             // Random client ID
             String clientId = "esp-light:";
             clientId += String(random(0xFFFF), HEX);
 
             // attempt connection
             if (client.connect(clientId.c_str())) {
-                Serial.println("[MQTT] MQTT connected");
+                logger::log(module, "MQTT connected");
 
                 if (connection_callback_ != nullptr)
                 {
@@ -34,8 +37,7 @@ namespace mqtt
                 }
             }
             else {
-                Serial.print("[MQTT] mqtt connection failed: ");
-                Serial.println(client.state());
+                logger::log(module, "MQTT failed to connect: %d", client.state());
                 delay(5000);
             }
         }
