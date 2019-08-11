@@ -1,4 +1,5 @@
 #include "conf.hpp"
+#include "../logging/logging.hpp"
 
 #include <Arduino.h>
 #include <FS.h>
@@ -6,7 +7,8 @@
 
 namespace
 {
-    const char * log_prefix = "[CONF]";
+    const char * module = "CONF";
+
     const char * configuration_file = "/config.json";
 
     const char* KEY_SSID = "ssid";
@@ -33,7 +35,7 @@ namespace
         }
         else
         {
-            Serial.printf("%s Failed to open %s", log_prefix, configuration_file);
+            logger::log(module, "Failed to open %s", configuration_file);
         }
 
         conf_file.close();
@@ -53,16 +55,14 @@ namespace
                     found_config = root.containsKey(KEYS[i]);
                     if (!found_config)
                     {
-                        Serial.printf("%s %s not found\n", log_prefix, KEYS[i]);
+                        logger::log(module, "%s not found", KEYS[i]);
                     }
                 }
             }
-
-            Serial.printf("[CONF] found config: %d\n", (int)found_config);
         }
         else
         {
-            Serial.printf("%s Failed to open %s", log_prefix, configuration_file);
+            logger::log(module, "Failed to open %s", configuration_file);
         }
         conf_file.close();
     }
@@ -77,10 +77,10 @@ namespace
         int led_count = root[KEY_COUNT].as<int>();
 
         // TODO: There is probably a better way to do this.
-        Serial.println();
-        Serial.printf("%s WIFI: SSID=%s, PASS=%s\n", log_prefix, ssid.c_str(), pass.c_str());
-        Serial.printf("%s MQTT: BROKER=%s, PORT=%d, PREFIX=%s\n", log_prefix, broker.c_str(), port, prefix.c_str());
-        Serial.printf("%s LEDS: COUNT=%d\n", log_prefix, led_count);
+        logger::log(module, "Current configuration:");
+        logger::log(module, "WIFI: SSID=%s, PASS=%s", ssid.c_str(), pass.c_str());
+        // logger::log(module, "MQTT: BROKER=%s, PORT=%d, PREFIX=%s", broker.c_str(), port, prefix.c_str());
+        // logger::log(module, "LEDS: COUNT=%d", led_count);
     }
 }
 
@@ -95,7 +95,7 @@ namespace conf
         }
         else
         {
-            Serial.printf("%s Error mounting file system. Run AT+FMT0 to format\n", log_prefix);
+            logger::log(module, "Error mounting file system. Run AT+FMT0 to format");
         }
     }
 
@@ -131,7 +131,7 @@ namespace conf
                 char* ssid = strtok(arg, ",");
                 char* pass = strtok(0, ",");
 
-                Serial.printf("%s WIFI: SSID=%s, PASS=%s\n\n", log_prefix, ssid, pass);
+                logger::log(module, "WIFI: SSID=%s, PASS=%s", ssid, pass);
 
                 root[KEY_SSID] = ssid;
                 root[KEY_PASS] = pass;
@@ -142,7 +142,7 @@ namespace conf
             {
                 int led_count = atoi(arg);
 
-                Serial.printf("%s LEDS: COUNT=%d\n\n", log_prefix, led_count);
+                logger::log(module, "LEDS: COUNT=%d", led_count);
 
                 root[KEY_COUNT] = led_count;
 
@@ -156,7 +156,7 @@ namespace conf
 
                 int port = atoi(port_s);
 
-                Serial.printf("%s MQTT: BROKER=%s, PORT=%d, PREFIX=%s\n\n", log_prefix, broker, port, prefix);
+                logger::log(module, "MQTT: BROKER=%s, PORT=%d, PREFIX=%s", broker, port, prefix);
 
                 root[KEY_BROKER] = broker;
                 root[KEY_PORT] = port;
@@ -170,19 +170,19 @@ namespace conf
             }
             else if (cmd_str == "FMT0")
             {
-                Serial.printf("%s Formatting file system...\n", log_prefix);
+                logger::log(module, "Formatting file system...");
                 if (SPIFFS.format())
                 {
-                    Serial.printf("%s Formatting successful!\n", log_prefix);
+                    logger::log(module, "Formatting successful!");
                 }
                 else
                 {
-                    Serial.printf("%s Failed to format file system\n", log_prefix);
+                    logger::log(module, "Failed to format file system");
                 }
             }
             else
             {
-                Serial.printf("%s Unrecognized command: %s", log_prefix, at_cmd.c_str());
+                logger::log(module, "Unrecognized command: %s", at_cmd.c_str());
             }
         }
     }
