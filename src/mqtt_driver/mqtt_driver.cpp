@@ -20,7 +20,7 @@ namespace mqtt
     {
         client.setServer(broker, port);
 
-        while(!client.connected()) 
+        if (!client.connected())
         {
             logger::log(module, "Attempting MQTT connection...");
             // Random client ID
@@ -28,7 +28,8 @@ namespace mqtt
             clientId += String(random(0xFFFF), HEX);
 
             // attempt connection
-            if (client.connect(clientId.c_str())) {
+            if (client.connect(clientId.c_str()))
+            {
                 logger::log(module, "MQTT connected");
 
                 if (connection_callback_ != nullptr)
@@ -38,7 +39,7 @@ namespace mqtt
             }
             else {
                 logger::log(module, "MQTT failed to connect: %d", client.state());
-                delay(5000);
+                delay(1000);
             }
         }
     }

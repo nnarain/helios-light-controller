@@ -79,8 +79,8 @@ namespace
         // TODO: There is probably a better way to do this.
         logger::log(module, "Current configuration:");
         logger::log(module, "WIFI: SSID=%s, PASS=%s", ssid.c_str(), pass.c_str());
-        // logger::log(module, "MQTT: BROKER=%s, PORT=%d, PREFIX=%s", broker.c_str(), port, prefix.c_str());
-        // logger::log(module, "LEDS: COUNT=%d", led_count);
+        logger::log(module, "MQTT: BROKER=%s, PORT=%d, PREFIX=%s", broker.c_str(), port, prefix.c_str());
+        logger::log(module, "LEDS: COUNT=%d", led_count);
     }
 }
 
