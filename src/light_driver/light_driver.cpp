@@ -1,10 +1,10 @@
 #include "light_driver.hpp"
 
-#include <Adafruit_NeoPixel.h>
+#include <WS2812FX.h>
 
 namespace
 {
-    Adafruit_NeoPixel* strip = nullptr;
+    WS2812FX* strip = nullptr;
     bool enabled = false;
 }
 
@@ -12,10 +12,12 @@ namespace lights
 {
     void init(int led_count)
     {
-        strip = new Adafruit_NeoPixel(led_count, 2, NEO_GRB | NEO_KHZ800);
-        strip->begin();
-        strip->clear();
-        strip->show();
+        strip = new WS2812FX(led_count, 2, NEO_GRB | NEO_KHZ800);
+        strip->init();
+        strip->setBrightness(255);
+        strip->setSpeed(2000);
+
+        strip->start();
     }
 
     void on()
@@ -40,7 +42,7 @@ namespace lights
     {
         if (enabled)
         {
-            strip->show();
+            strip->service();
         }
     }
 
