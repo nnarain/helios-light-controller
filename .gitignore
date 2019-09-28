@@ -10,3 +10,4 @@ venv/*
 *.xml
 
 design/esp-light-controller/export/*
+design/esp-light-controller/out/*

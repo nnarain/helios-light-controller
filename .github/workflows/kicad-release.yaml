@@ -1,0 +1,13 @@
+name: KiCAD Github Release
+
+on: [push]
+
+jobs:
+  build:
+    name: KiCAD Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install KiCAD tools
+        run: git clone https://github.com/nnarain/kicad-tools /opt/kicad-tools && cd /opt/kicad-tools/ && make
