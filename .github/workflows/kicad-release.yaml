@@ -10,4 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install KiCAD tools
-        run: git clone https://github.com/nnarain/kicad-tools /opt/kicad-tools && cd /opt/kicad-tools/ && make
+        run: git clone https://github.com/nnarain/kicad-tools /opt/kicad-tools
+      - name: Build KiCAD tools
+        run: cd /opt/kicad-tools && git submodule update --init --recursive && make && cd -
