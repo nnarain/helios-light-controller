@@ -9,4 +9,4 @@ venv/*
 *.tsv
 *.xml
 
-design/esp-light-controller/export/*
+design/esp-light-controller/out/*
