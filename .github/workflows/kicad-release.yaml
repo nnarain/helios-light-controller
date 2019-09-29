@@ -3,7 +3,7 @@ name: KiCAD Github Release
 on: [push]
 
 jobs:
-  build:
+  kicad:
     name: KiCAD Release
     runs-on: ubuntu-latest
 
@@ -11,5 +11,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install KiCAD tools
         run: git clone https://github.com/nnarain/kicad-tools /opt/kicad-tools
-      - name: Build KiCAD tools
-        run: cd /opt/kicad-tools && git submodule update --init --recursive && make && cd -
+      - name: Generate KiCAD outputs
+        env:
+          DOCKER_CONTAINER: nnarain/kicad-tools
+        run: make -f design/esp-light-controller/Makefile
+      - name: List Output
+        run: ls design/esp-light-controller/out
