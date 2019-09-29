@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "TODO: Build firmware..."
+      - run: echo "TODO"
 
   deploy:
     name: Deploy to Github Releases
