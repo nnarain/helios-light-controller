@@ -20,7 +20,7 @@ jobs:
       - name: List Output
         run: ls -R design/esp-light-controller/out
       - name: Grab Gerber files
-        run: find . -type f \( -iname \*.gbr -iname \*.png \) -print | zip esp-light-controller-build-assets.zip -@
+        run: find . -type f \( -iname \*.gbr -o -iname \*.drl \) -print | zip esp-light-controller-build-assets.zip -@
       - name: Grab BOM
         run: cp $(find . -name "bom.csv") bom.csv
       - name: List directory
