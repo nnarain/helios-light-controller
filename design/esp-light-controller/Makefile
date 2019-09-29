@@ -5,7 +5,6 @@ MAKEFILE_PATH := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 # This matches what one would usually find with KiCad
 
 BOARD = $(shell  ls $(MAKEFILE_PATH)/*.pro | xargs -n 1 basename --suffix .pro |head -n 1)
-KICAD_TOOLS_PATH = ${KICAD_TOOLS_PATH}
 
 -include $(KICAD_TOOLS_PATH)/etc/rules.mk
 

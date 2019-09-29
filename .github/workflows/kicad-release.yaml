@@ -11,10 +11,12 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install KiCAD tools
         run: git clone https://github.com/nnarain/kicad-tools /opt/kicad-tools
+      - name: Install ZIP
+        run: sudo apt install zip -qq -y
       - name: Generate KiCAD outputs
         env:
           DOCKER_CONTAINER: nnarain/kicad-tools
           KICAD_TOOLS_PATH: /opt/kicad-tools
-        run: make -f design/esp-light-controller/Makefile
+        run: cd design/esp-light-controller && make fabrication-outputs
       - name: List Output
-        run: ls design/esp-light-controller/out
+        run: ls ./out
