@@ -40,7 +40,7 @@ namespace lights
 
     void spin()
     {
-        if (enabled)
+        if (strip && enabled)
         {
             strip->service();
         }
@@ -48,7 +48,23 @@ namespace lights
 
     void setRGB(uint8_t r, uint8_t g, uint8_t b)
     {
-        const auto c = Adafruit_NeoPixel::Color(r, g, b);
-        strip->fill(c);
+        strip->setColor(r, g, b);
+    }
+
+    void setEffect(const String& effect)
+    {
+        const auto count = strip->getModeCount();
+
+        // Find the mode by name and set it
+        for (auto mode = 0u; mode < count; ++mode)
+        {
+            const auto mode_name = strip->getModeName(mode);
+
+            if (effect == String(mode_name))
+            {
+                strip->setMode(mode);
+                break;
+            }
+        }
     }
 }

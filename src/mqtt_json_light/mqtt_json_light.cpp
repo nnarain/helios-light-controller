@@ -12,25 +12,6 @@
 
 namespace
 {
-    enum class Effect
-    {
-        SOLID
-    };
-
-    struct Color
-    {
-        uint8_t r;
-        uint8_t g;
-        uint8_t b;
-
-        void set(uint8_t r, uint8_t g, uint8_t b)
-        {
-            this->r = r;
-            this->g = g;
-            this->b = b;
-        }
-    };
-
     const char* module = "HASS";
 
     const char* CMD_TOPIC = "/cmd";
@@ -40,9 +21,6 @@ namespace
 
     String cmd_topic;
     String state_topic;
-
-    Effect effect = Effect::SOLID;
-    Color color;
 
     ArduinoJson::DynamicJsonDocument doc(256);
     ArduinoJson::StaticJsonDocument<256> current_state;
@@ -85,15 +63,12 @@ namespace
                 const auto g = current_state["color"]["g"].as<uint8_t>();
                 const auto b = current_state["color"]["b"].as<uint8_t>();
 
-                color.set(r, g, b);
+                lights::setRGB(r, g, b);
 
                 // Load the effect
-                const String effect_str = current_state["effect"];
-
-                if (effect_str == "solid")
-                {
-                    effect = Effect::SOLID;
-                }
+                const String effect = current_state["effect"];
+                logger::log(module, "Setting effect to %s", effect.c_str());
+                lights::setEffect(effect);
             }
             else
             {
@@ -122,8 +97,9 @@ namespace
 
         if (topic_str == cmd_topic)
         {
-            if (!deserializeJson(doc, payload))
+            if (!deserializeJson(doc, payload, length))
             {
+                logger::log(module, "Deserialize success");
                 ArduinoJson::JsonObject cmd = doc.as<ArduinoJson::JsonObject>();
 
                 if (cmd.containsKey("state"))
@@ -132,10 +108,12 @@ namespace
 
                     if (state == String("ON"))
                     {
+                        logger::log(module, "Enabling lights");
                         lights::on();
                     }
                     else if (state == String("OFF"))
                     {
+                        logger::log(module, "Disabling lights");
                         lights::off();
                     }
 
@@ -143,24 +121,36 @@ namespace
                 }
                 if (cmd.containsKey("color"))
                 {
+                    current_state["color"] = cmd["color"];
+
                     const auto r = cmd["color"]["r"].as<uint8_t>();
                     const auto g = cmd["color"]["g"].as<uint8_t>();
                     const auto b = cmd["color"]["b"].as<uint8_t>();
 
-                    color.set(r, g, b);
-
-                    current_state["color"] = cmd["color"];
+                    logger::log(module, "Setting color to [%d, %d, %d]", r, g, b);
+                    lights::setRGB(r, g, b);
                 }
                 if (cmd.containsKey("effect"))
                 {
-                    // TODO
+                    current_state["effect"] = cmd["effect"].as<String>();
 
-                    current_state["effect"] = cmd["effect"];
+                    logger::log(module, "Setting effect to: %s", current_state["effect"].as<const char*>());
+                    lights::setEffect(current_state["effect"]);
                 }
 
                 updateSavedState();
                 publishState();
             }
+            else
+            {
+                logger::log(module, "Failed to deserialize payload recieved from %s", topic);
+                for (int i = 0; i < length; ++i)
+                {
+                    Serial.print((char)payload[i]);
+                }
+                Serial.println();
+            }
+            
         }
     }
 
@@ -180,14 +170,6 @@ namespace
         // Publish the saved state
         publishState();
     }
-
-    void effectSolid()
-    {
-        if (lights::isOn())
-        {
-            lights::setRGB(color.r, color.g, color.b);
-        }
-    }
 }
 
 namespace mqttjsonlight
@@ -202,13 +184,6 @@ namespace mqttjsonlight
 
     void spin()
     {
-        switch (effect)
-        {
-        case Effect::SOLID:
-            effectSolid();
-            break;
-        default:
-            break;
-        }
+
     }
 }
