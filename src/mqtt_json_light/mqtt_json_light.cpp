@@ -88,6 +88,8 @@ namespace
         String output;
         ArduinoJson::serializeJson(current_state, output);
 
+        logger::log(module, "Updating state: %s", output.c_str());
+
         mqtt::publish(state_topic.c_str(), output.c_str(), true);
     }
 
@@ -99,7 +101,6 @@ namespace
         {
             if (!deserializeJson(doc, payload, length))
             {
-                logger::log(module, "Deserialize success");
                 ArduinoJson::JsonObject cmd = doc.as<ArduinoJson::JsonObject>();
 
                 if (cmd.containsKey("state"))
@@ -121,13 +122,13 @@ namespace
                 }
                 if (cmd.containsKey("color"))
                 {
-                    current_state["color"] = cmd["color"];
+                    current_state["color"] = cmd["color"].as<ArduinoJson::JsonObject>();
 
                     const auto r = cmd["color"]["r"].as<uint8_t>();
                     const auto g = cmd["color"]["g"].as<uint8_t>();
                     const auto b = cmd["color"]["b"].as<uint8_t>();
 
-                    logger::log(module, "Setting color to [%d, %d, %d]", r, g, b);
+                    logger::log(module, "Setting color to %d, %d, %d", r, g, b);
                     lights::setRGB(r, g, b);
                 }
                 if (cmd.containsKey("effect"))
@@ -138,8 +139,8 @@ namespace
                     lights::setEffect(current_state["effect"]);
                 }
 
-                updateSavedState();
                 publishState();
+                updateSavedState();
             }
             else
             {
