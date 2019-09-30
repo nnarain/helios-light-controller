@@ -1,6 +1,7 @@
 #ifndef LIGHT_DRIVER_HPP
 #define LIGHT_DRIVER_HPP
 
+#include <Arduino.h>
 #include <cstdint>
 
 namespace lights
@@ -11,6 +12,8 @@ namespace lights
     bool isOn();
     void spin();
     void setRGB(uint8_t r, uint8_t g, uint8_t b);
+
+    void setEffect(const String& effect);
 }
 
 #endif

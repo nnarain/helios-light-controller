@@ -1,10 +1,10 @@
 #include "light_driver.hpp"
 
-#include <Adafruit_NeoPixel.h>
+#include <WS2812FX.h>
 
 namespace
 {
-    Adafruit_NeoPixel* strip = nullptr;
+    WS2812FX* strip = nullptr;
     bool enabled = false;
 }
 
@@ -12,10 +12,12 @@ namespace lights
 {
     void init(int led_count)
     {
-        strip = new Adafruit_NeoPixel(led_count, 2, NEO_GRB | NEO_KHZ800);
-        strip->begin();
-        strip->clear();
-        strip->show();
+        strip = new WS2812FX(led_count, 2, NEO_GRB | NEO_KHZ800);
+        strip->init();
+        strip->setBrightness(255);
+        strip->setSpeed(2000);
+
+        strip->start();
     }
 
     void on()
@@ -38,15 +40,31 @@ namespace lights
 
     void spin()
     {
-        if (enabled)
+        if (strip && enabled)
         {
-            strip->show();
+            strip->service();
         }
     }
 
     void setRGB(uint8_t r, uint8_t g, uint8_t b)
     {
-        const auto c = Adafruit_NeoPixel::Color(r, g, b);
-        strip->fill(c);
+        strip->setColor(r, g, b);
+    }
+
+    void setEffect(const String& effect)
+    {
+        const auto count = strip->getModeCount();
+
+        // Find the mode by name and set it
+        for (auto mode = 0u; mode < count; ++mode)
+        {
+            const auto mode_name = strip->getModeName(mode);
+
+            if (effect == String(mode_name))
+            {
+                strip->setMode(mode);
+                break;
+            }
+        }
     }
 }
