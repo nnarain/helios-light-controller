@@ -69,6 +69,12 @@ namespace
                 const String effect = current_state["effect"];
                 logger::log(module, "Setting effect to %s", effect.c_str());
                 lights::setEffect(effect);
+
+                const auto speed = current_state["speed"].as<uint16_t>();
+                lights::setSpeed(speed);
+
+                const auto brightness = current_state["brightness"].as<uint8_t>();
+                lights::setBrightness(brightness);
             }
             else
             {
@@ -137,6 +143,20 @@ namespace
 
                     logger::log(module, "Setting effect to: %s", current_state["effect"].as<const char*>());
                     lights::setEffect(current_state["effect"]);
+                }
+                if (cmd.containsKey("brightness"))
+                {
+                    const auto brightness = cmd["brightness"].as<uint8_t>();
+                    current_state["brightness"] = brightness;
+
+                    lights::setBrightness(brightness);
+                }
+                if (cmd.containsKey("speed"))
+                {
+                    const auto speed = cmd["speed"].as<uint16_t>();
+                    current_state["speed"] = speed;
+
+                    lights::setSpeed(speed);
                 }
 
                 publishState();
