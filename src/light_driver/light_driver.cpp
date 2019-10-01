@@ -15,7 +15,7 @@ namespace lights
         strip = new WS2812FX(led_count, 2, NEO_GRB | NEO_KHZ800);
         strip->init();
         strip->setBrightness(255);
-        strip->setSpeed(2000);
+        strip->setSpeed(1000);
 
         strip->start();
     }
@@ -66,5 +66,15 @@ namespace lights
                 break;
             }
         }
+    }
+
+    void setSpeed(uint16_t speed)
+    {
+        strip->setSpeed(speed);
+    }
+
+    void setBrightness(uint8_t b)
+    {
+        strip->setBrightness(b);
     }
 }
