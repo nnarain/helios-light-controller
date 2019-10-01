@@ -47,34 +47,48 @@ namespace
         {
             if (!ArduinoJson::deserializeJson(current_state, file))
             {
-                const String state_str = current_state["state"];
+                if (current_state.containsKey("state"))
+                {
+                    const String state_str = current_state["state"];
 
-                if (state_str == "ON")
-                {
-                    lights::on();
-                }
-                else
-                {
-                    lights::off();
+                    if (state_str == "ON")
+                    {
+                        lights::on();
+                    }
+                    else
+                    {
+                        lights::off();
+                    }
                 }
 
                 // Load the initial color
-                const auto r = current_state["color"]["r"].as<uint8_t>();
-                const auto g = current_state["color"]["g"].as<uint8_t>();
-                const auto b = current_state["color"]["b"].as<uint8_t>();
+                if (current_state.containsKey("color"))
+                {
+                    const auto r = current_state["color"]["r"].as<uint8_t>();
+                    const auto g = current_state["color"]["g"].as<uint8_t>();
+                    const auto b = current_state["color"]["b"].as<uint8_t>();
 
-                lights::setRGB(r, g, b);
+                    lights::setRGB(r, g, b);
+                }
 
                 // Load the effect
-                const String effect = current_state["effect"];
-                logger::log(module, "Setting effect to %s", effect.c_str());
-                lights::setEffect(effect);
+                if (current_state.containsKey("effect"))
+                {
+                    const String effect = current_state["effect"];
+                    lights::setEffect(effect);
+                }
 
-                const auto speed = current_state["speed"].as<uint16_t>();
-                lights::setSpeed(speed);
-
-                const auto brightness = current_state["brightness"].as<uint8_t>();
-                lights::setBrightness(brightness);
+                if (current_state.containsKey("speed"))
+                {
+                    const auto speed = current_state["speed"].as<uint16_t>();
+                    lights::setSpeed(speed);
+                }
+                
+                if (current_state.containsKey("brightness"))
+                {
+                    const auto brightness = current_state["brightness"].as<uint8_t>();
+                    lights::setBrightness(brightness);
+                }
             }
             else
             {
