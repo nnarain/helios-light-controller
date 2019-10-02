@@ -4,6 +4,7 @@
 namespace wifi
 {
     void init(const char* ssid, const char* password);
+    bool connect();
 }
 
 #endif

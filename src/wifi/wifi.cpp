@@ -6,7 +6,10 @@
 
 namespace
 {
-    const char* module = "WIFI";
+    static constexpr char* module = "WIFI";
+    static constexpr int TIMEOUT_MS = 10000;
+    static constexpr int DELAY_MS = 500;
+    static constexpr int MAX_COUNT = TIMEOUT_MS / DELAY_MS;
 }
 
 namespace wifi
@@ -15,18 +18,38 @@ namespace wifi
     {
         logger::log(module, "Connecting to %s", ssid);
 
+        if (ssid == nullptr || password == nullptr)
+        {
+            logger::log(module, "Invalid SSID or password: %s, %s", ssid, password);
+            return;
+        }
+
+        logger::log(module, "Starting: %s, %s", ssid, password);
         WiFi.begin(ssid, password);
 
-        while (WiFi.status() != WL_CONNECTED)
+        auto count = 0;
+
+        while (WiFi.status() != WL_CONNECTED && count++ < MAX_COUNT)
         {
             delay(500);
             Serial.print(".");
         }
         Serial.print("\n");
 
-        randomSeed(micros());
+        if (WiFi.status() == WL_CONNECTED)
+        {
+            randomSeed(micros());
+            logger::log(module, "Connected");
+            logger::log(module, "IP address: %s", WiFi.localIP().toString().c_str());
+        }
+        else
+        {
+            logger::log(module, "WiFi timed out trying to connect");
+        }
+    }
 
-        logger::log(module, "Connected");
-        logger::log(module, "IP address: %s", WiFi.localIP().toString().c_str());
+    bool connect()
+    {
+        return WiFi.status() == WL_CONNECTED;
     }
 }

@@ -46,17 +46,21 @@ void loop()
 
     wifi::init(ssid.c_str(), pass.c_str());
 
-    // Setup LEDs
-    const auto led_count = conf::getLedCount();
+    // Wifi must be initialzed before any other initialization occurs
+    if (wifi::connect())
+    {
+      // Setup LEDs
+      const auto led_count = conf::getLedCount();
 
-    lights::init(led_count);
+      lights::init(led_count);
 
-    // Initialize MQTT Lights
-    mqttjsonlight::init();
+      // Initialize MQTT Lights
+      mqttjsonlight::init();
 
-    // System is initialized
-    system_initialized = true;
-    logger::log("MAIN", "System initialized");
+      // System is initialized
+      system_initialized = true;
+      logger::log("MAIN", "System initialized");
+    }
   }
 
   if (system_initialized)

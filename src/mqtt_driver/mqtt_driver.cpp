@@ -18,6 +18,13 @@ namespace mqtt
 {
     void connect(const char* broker, uint16_t port)
     {
+        if (broker == nullptr)
+        {
+            logger::log(module, "Invalid MQTT broker: %s", broker);
+            return;
+        }
+
+        logger::log(module, "Setting MQTT broker to %s:%d", broker, port);
         client.setServer(broker, port);
 
         if (!client.connected())
