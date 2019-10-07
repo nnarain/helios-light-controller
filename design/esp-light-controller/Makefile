@@ -6,6 +6,8 @@ MAKEFILE_PATH := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 
 BOARD = $(shell  ls $(MAKEFILE_PATH)/*.pro | xargs -n 1 basename --suffix .pro |head -n 1)
 
+export DOCKER_ENVIRONMENT = -e KIESP_LIB=/kicad-libs/kicad-ESP8266
+
 -include $(KICAD_TOOLS_PATH)/etc/rules.mk
 
 dummy:
