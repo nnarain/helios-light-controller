@@ -1,13 +1,12 @@
 EESchema Schematic File Version 4
-LIBS:esp-light-controller-cache
 EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
+Title "ESP-01 Light Controller"
+Date "2019-10-07"
+Rev "REV A"
 Comp ""
 Comment1 ""
 Comment2 ""
