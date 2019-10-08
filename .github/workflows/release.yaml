@@ -12,6 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - run: git submodule update --init --recursive
       - name: Install KiCAD tools
         run: git clone --branch=ci https://github.com/nnarain/kicad-tools /opt/kicad-tools
       - name: Generate KiCAD outputs
