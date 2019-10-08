@@ -1,9 +1,10 @@
 name: Release
 
-on:
-  push:
-    tags:
-      - '*'
+# on:
+#   push:
+#     tags:
+#       - '*'
+on: [push]
 
 jobs:
   kicad:
@@ -14,11 +15,14 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install KiCAD tools
         run: git clone --branch=ci https://github.com/nnarain/kicad-tools /opt/kicad-tools
+      - name: Install third party KiCAD libraries
+        run: mkdir -p /opt/kicad-libs && git clone https://github.com/nnarain/kicad-ESP8266.git /opt/kicad-libs/kicad-ESP8266
       - name: Generate KiCAD outputs
         env:
           DOCKER_CONTAINER: nnarain/kicad-tools
           DOCKER_INTERACTIVE: ""
           KICAD_TOOLS_PATH: /opt/kicad-tools
+          KICAD_LIB_DIR: /opt/kicad-libs
         run: cd design/esp-light-controller && make fabrication-outputs
       - name: Collect Build Assets
         run: find . -type f \( -iname \*.gbr -o -iname \*.drl \) -print | zip esp-light-controller-build-assets.zip -@

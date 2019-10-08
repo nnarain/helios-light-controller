@@ -1,0 +1,3 @@
+[submodule "design/esp-light-controller/libraries/kicad-ESP8266"]
+	path = design/esp-light-controller/libraries/kicad-ESP8266
+	url = https://github.com/nnarain/kicad-ESP8266
