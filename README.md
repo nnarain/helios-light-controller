@@ -1,5 +1,7 @@
 # ESP Light Controller
 
+[![GitHub release](https://img.shields.io/github/release/nnarain/esp-light-controller.svg)](https://github.com/nnarain/esp-light-controller/releases)
+
 Firmware for an ESP-01 base light strip controller. Compliant with MQTT JSON Lights: https://www.home-assistant.io/components/light.mqtt/
 
 Build
@@ -10,7 +12,7 @@ This is an Arduino project. Simply open it in the Arduino IDE and upload to the 
 Usage
 -----
 
-The device must be configured before it is used. Configuration occurs through an AT like serial interface.
+The device must be configured before it can be used. Configuration occurs through an AT like serial interface.
 
 An AT command has the following structure.
 
@@ -30,14 +32,12 @@ The `DUMP` command dumps the current config to the serial port.
 Hardware
 --------
 
-Included in this project under the `design` folder is a set of KiCAD files. In order of open these some minor setup needs to occur.
+This repo contains schematics and PCB layouts for the ESP light controller.
 
-First install the ESP8266 KiCAD libraries.
+Install submodules to pull in external KiCAD libraries.
 
 ```
-$ git clone https://github.com/jdunmire/kicad-ESP8266
+$ git submodule update --init --recursive
 ```
 
-Start KiCAD. Under `Preferences > Configure Paths` add a new enviroment variable called `KIESP_LIB` and set it to `/path/to/kicad-ESP8266`.
-
-KiCAD will now be able to find all the necessary components.
+Checkout the [release](https://github.com/nnarain/esp-light-controller/releases) page for KiCAD outputs.
