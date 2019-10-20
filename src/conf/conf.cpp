@@ -1,15 +1,39 @@
 #include "conf.hpp"
 #include "../logging/logging.hpp"
+#include "../fs/fs.hpp"
 
 #include <Arduino.h>
-#include <FS.h>
 #include <ArduinoJson.hpp>
 
 namespace
 {
+    using strbuf = char[64];
+
+    struct Configuration
+    {
+        strbuf ssid;
+        strbuf pass;
+        strbuf broker;
+        uint16_t port;
+        strbuf prefix;
+        uint32_t count;
+
+        Configuration()
+        {
+            ssid[0] = '\0';
+            pass[0] = '\0';
+            broker[0] = '\0';
+            port = 0;
+            prefix[0] = '\0';
+            count = 0;
+        }
+    };
+
+    Configuration config;
+
     const char * module = "CONF";
 
-    const char * configuration_file = "/config.json";
+    const char * CONFIGURATION_FILE = "/config";
 
     const char* KEY_SSID = "ssid";
     const char* KEY_PASS = "pass";
@@ -22,65 +46,14 @@ namespace
         KEY_SSID, KEY_PASS, KEY_BROKER, KEY_PORT, KEY_PREFIX, KEY_COUNT
     };
 
-    ArduinoJson::StaticJsonDocument<256> root;
-
     bool found_config = false;
-
-    void updateConfig()
-    {
-        File conf_file = SPIFFS.open(configuration_file, "w+");
-        if (conf_file)
-        {
-            ArduinoJson::serializeJson(root, conf_file);
-        }
-        else
-        {
-            logger::log(module, "Failed to open %s", configuration_file);
-        }
-
-        conf_file.close();
-    }
-
-    void loadConfig()
-    {
-        // Attempt to read the configuration from memory
-        File conf_file = SPIFFS.open(configuration_file, "r");
-        if (conf_file)
-        {
-            if (!ArduinoJson::deserializeJson(root, conf_file))
-            {
-                const auto length = sizeof(KEYS) / sizeof(KEYS[0]);
-                for (auto i = 0; i < length; ++i)
-                {
-                    found_config = root.containsKey(KEYS[i]);
-                    if (!found_config)
-                    {
-                        logger::log(module, "%s not found", KEYS[i]);
-                    }
-                }
-            }
-        }
-        else
-        {
-            logger::log(module, "Failed to open %s", configuration_file);
-        }
-        conf_file.close();
-    }
 
     void dumpConfig()
     {
-        String ssid = root[KEY_SSID];
-        String pass = root[KEY_PASS];
-        String broker = root[KEY_BROKER];
-        int port = root[KEY_PORT].as<int>();
-        String prefix = root[KEY_PREFIX];
-        int led_count = root[KEY_COUNT].as<int>();
-
-        // TODO: There is probably a better way to do this.
         logger::log(module, "Current configuration:");
-        logger::log(module, "WIFI: SSID=%s, PASS=%s", ssid.c_str(), pass.c_str());
-        logger::log(module, "MQTT: BROKER=%s, PORT=%d, PREFIX=%s", broker.c_str(), port, prefix.c_str());
-        logger::log(module, "LEDS: COUNT=%d", led_count);
+        logger::log(module, "WIFI: SSID=%s, PASS=%s", config.ssid, config.pass);
+        logger::log(module, "MQTT: BROKER=%s, PORT=%d, PREFIX=%s", config.broker, config.port, config.prefix);
+        logger::log(module, "LEDS: COUNT=%d", config.count);
     }
 }
 
@@ -88,15 +61,8 @@ namespace conf
 {
     void init()
     {
-        if (SPIFFS.begin())
-        {
-            loadConfig();
-            dumpConfig();
-        }
-        else
-        {
-            logger::log(module, "Error mounting file system. Run AT+FMT0 to format");
-        }
+        found_config = fs::load(CONFIGURATION_FILE, config);
+        dumpConfig();
     }
 
     bool found()
@@ -128,41 +94,36 @@ namespace conf
 
             if (cmd_str == "WIFI")
             {
-                char* ssid = strtok(arg, ",");
-                char* pass = strtok(0, ",");
+                const char* ssid = strtok(arg, ",");
+                const char* pass = strtok(0, ",");
+
+                strncpy(config.ssid, ssid, sizeof(strbuf));
+                strncpy(config.pass, pass, sizeof(strbuf));
 
                 logger::log(module, "WIFI: SSID=%s, PASS=%s", ssid, pass);
-
-                root[KEY_SSID] = ssid;
-                root[KEY_PASS] = pass;
-
-                updateConfig();
             }
             else if (cmd_str == "LEDS")
             {
-                int led_count = atoi(arg);
+                const auto led_count = atoi(arg);
+
+                config.count = led_count;
 
                 logger::log(module, "LEDS: COUNT=%d", led_count);
-
-                root[KEY_COUNT] = led_count;
-
-                updateConfig();
             }
             else if (cmd_str == "MQTT")
             {
-                char* broker = strtok(arg, ",");
-                char* port_s = strtok(0, ",");
-                char* prefix = strtok(0, ",");
+                const char* broker = strtok(arg, ",");
+                const char* port_s = strtok(0, ",");
+                const char* prefix = strtok(0, ",");
 
-                int port = atoi(port_s);
+                const auto port = atoi(port_s);
+
+                strncpy(config.broker, broker, sizeof(strbuf));
+                strncpy(config.prefix, prefix, sizeof(strbuf));
+
+                config.port = port;
 
                 logger::log(module, "MQTT: BROKER=%s, PORT=%d, PREFIX=%s", broker, port, prefix);
-
-                root[KEY_BROKER] = broker;
-                root[KEY_PORT] = port;
-                root[KEY_PREFIX] = prefix;
-
-                updateConfig();
             }
             else if (cmd_str == "DUMP")
             {
@@ -184,38 +145,38 @@ namespace conf
             {
                 logger::log(module, "Unrecognized command: %s", at_cmd.c_str());
             }
+
+            fs::store(CONFIGURATION_FILE, config);
         }
     }
 
     String getSSID()
     {
-        return root[KEY_SSID];
+        return String{config.ssid};
     }
 
     String getPassword()
     {
-        return root[KEY_PASS];
+        return String{config.pass};
     }
 
     String getMqttBroker()
     {
-        return root[KEY_BROKER];
+        return String{config.broker};
     }
 
     uint16_t getMqttPort()
     {
-        uint16_t port = root[KEY_PORT].as<uint16_t>();
-        return port;
-    }
-
-    int getLedCount()
-    {
-        int led_count = root[KEY_COUNT].as<int>();
-        return led_count;
+        return config.port;
     }
 
     String getPrefix()
     {
-        return root[KEY_PREFIX];
+        return String{config.prefix};
+    }
+
+    int getLedCount()
+    {
+        return config.count;
     }
 }

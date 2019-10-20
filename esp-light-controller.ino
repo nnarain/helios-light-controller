@@ -12,6 +12,7 @@
 #include "src/light_driver/light_driver.hpp"
 #include "src/mqtt_json_light/mqtt_json_light.hpp"
 #include "src/conf/conf.hpp"
+#include "src/fs/fs.hpp"
 #include "src/logging/logging.hpp"
 
 namespace
@@ -26,6 +27,7 @@ void setup()
   delay(100);
   Serial.println();
 
+  fs::init();
   conf::init();
 }
 

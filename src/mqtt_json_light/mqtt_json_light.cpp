@@ -3,15 +3,30 @@
 #include "../mqtt_driver/mqtt_driver.hpp"
 #include "../light_driver/light_driver.hpp"
 #include "../conf/conf.hpp"
+#include "../fs/fs.hpp"
 #include "../logging/logging.hpp"
 
 #include <ArduinoJson.hpp>
-#include <FS.h>
 
 #include <cstdint>
 
 namespace
 {
+    using strbuf = char[64];
+
+    struct State
+    {
+        bool on_state;
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+        strbuf effect;
+        uint16_t speed;
+        uint8_t brightness;
+    };
+
+    State state;
+
     const char* module = "HASS";
 
     const char* CMD_TOPIC = "/cmd";
@@ -19,94 +34,53 @@ namespace
 
     const char* CURRENT_STATE_FILE = "/currrent_state";
 
+    ArduinoJson::StaticJsonDocument<256> doc;
+
     String cmd_topic;
     String state_topic;
 
-    ArduinoJson::DynamicJsonDocument doc(256);
-    ArduinoJson::StaticJsonDocument<256> current_state;
-
     void updateSavedState()
     {
-        auto file = SPIFFS.open(CURRENT_STATE_FILE, "w+");
-        if (file)
-        {
-            ArduinoJson::serializeJson(current_state, file);
-        }
-        else
-        {
-            logger::log(module, "Unable to update saved state");
-        }
-        
-        file.close();
+        fs::store(CURRENT_STATE_FILE, state);
     }
 
     void loadInitialState()
     {
-        auto file = SPIFFS.open(CURRENT_STATE_FILE, "r");
-        if (file)
+        if (!fs::load(CURRENT_STATE_FILE, state))
         {
-            if (!ArduinoJson::deserializeJson(current_state, file))
-            {
-                if (current_state.containsKey("state"))
-                {
-                    const String state_str = current_state["state"];
+            logger::log(module, "Failed to load initial state");
+            return;
+        }
 
-                    if (state_str == "ON")
-                    {
-                        lights::on();
-                    }
-                    else
-                    {
-                        lights::off();
-                    }
-                }
-
-                // Load the initial color
-                if (current_state.containsKey("color"))
-                {
-                    const auto r = current_state["color"]["r"].as<uint8_t>();
-                    const auto g = current_state["color"]["g"].as<uint8_t>();
-                    const auto b = current_state["color"]["b"].as<uint8_t>();
-
-                    lights::setRGB(r, g, b);
-                }
-
-                // Load the effect
-                if (current_state.containsKey("effect"))
-                {
-                    const String effect = current_state["effect"];
-                    lights::setEffect(effect);
-                }
-
-                if (current_state.containsKey("speed"))
-                {
-                    const auto speed = current_state["speed"].as<uint16_t>();
-                    lights::setSpeed(speed);
-                }
-                
-                if (current_state.containsKey("brightness"))
-                {
-                    const auto brightness = current_state["brightness"].as<uint8_t>();
-                    lights::setBrightness(brightness);
-                }
-            }
-            else
-            {
-                logger::log(module, "Failed to load initial state");
-            }
-            
+        if (state.on_state)
+        {
+            lights::on();
         }
         else
         {
-            logger::log(module, "Failed to publish initial state");
+            lights::off();
         }
-        file.close();
+
+        lights::setRGB(state.r, state.g, state.b);
+        lights::setEffect(String{state.effect});
+        lights::setSpeed(state.speed);
+        lights::setBrightness(state.brightness);
     }
 
     void publishState()
     {
+        doc["state"] = (state.on_state) ? "ON" : "OFF";
+
+        doc["color"]["r"] = state.r;
+        doc["color"]["g"] = state.g;
+        doc["color"]["b"] = state.b;
+
+        doc["effect"] = state.effect;
+        doc["speed"] = state.speed;
+        doc["brightness"] = state.brightness;
+
         String output;
-        ArduinoJson::serializeJson(current_state, output);
+        ArduinoJson::serializeJson(doc, output);
 
         logger::log(module, "Updating state: %s", output.c_str());
 
@@ -121,54 +95,56 @@ namespace
         {
             if (!deserializeJson(doc, payload, length))
             {
-                ArduinoJson::JsonObject cmd = doc.as<ArduinoJson::JsonObject>();
-
-                if (cmd.containsKey("state"))
+                if (doc.containsKey("state"))
                 {
-                    String state = cmd["state"];
+                    String on_state = doc["state"];
 
-                    if (state == String("ON"))
+                    if (on_state == String("ON"))
                     {
                         logger::log(module, "Enabling lights");
+                        state.on_state = true;
                         lights::on();
                     }
-                    else if (state == String("OFF"))
+                    else if (on_state == String("OFF"))
                     {
                         logger::log(module, "Disabling lights");
+                        state.on_state = false;
                         lights::off();
                     }
-
-                    current_state["state"] = state;
                 }
-                if (cmd.containsKey("color"))
+                if (doc.containsKey("color"))
                 {
-                    current_state["color"] = cmd["color"].as<ArduinoJson::JsonObject>();
+                    const auto r = doc["color"]["r"].as<uint8_t>();
+                    const auto g = doc["color"]["g"].as<uint8_t>();
+                    const auto b = doc["color"]["b"].as<uint8_t>();
 
-                    const auto r = cmd["color"]["r"].as<uint8_t>();
-                    const auto g = cmd["color"]["g"].as<uint8_t>();
-                    const auto b = cmd["color"]["b"].as<uint8_t>();
-
-                    logger::log(module, "Setting color to %d, %d, %d", r, g, b);
+                    logger::log(module, "Setting color to (%d, %d, %d)", r, g, b);
                     lights::setRGB(r, g, b);
-                }
-                if (cmd.containsKey("effect"))
-                {
-                    current_state["effect"] = cmd["effect"].as<String>();
 
-                    logger::log(module, "Setting effect to: %s", current_state["effect"].as<const char*>());
-                    lights::setEffect(current_state["effect"]);
+                    state.r = r;
+                    state.g = g;
+                    state.b = b;
                 }
-                if (cmd.containsKey("brightness"))
+                if (doc.containsKey("effect"))
                 {
-                    const auto brightness = cmd["brightness"].as<uint8_t>();
-                    current_state["brightness"] = brightness;
+                    const auto effect = doc["effect"].as<const char*>();
+
+                    logger::log(module, "Setting effect to: %s", effect);
+                    lights::setEffect(String{effect});
+
+                    strncpy(state.effect, effect, strlen(effect));
+                }
+                if (doc.containsKey("brightness"))
+                {
+                    const auto brightness = doc["brightness"].as<uint8_t>();
+                    state.brightness = brightness;
 
                     lights::setBrightness(brightness);
                 }
-                if (cmd.containsKey("speed"))
+                if (doc.containsKey("speed"))
                 {
-                    const auto speed = cmd["speed"].as<uint16_t>();
-                    current_state["speed"] = speed;
+                    const auto speed = doc["speed"].as<uint16_t>();
+                    state.speed = speed;
 
                     lights::setSpeed(speed);
                 }
