@@ -13,20 +13,18 @@ def on_connect(client, args, flags, rc):
     logging.info('MQTT Client Connected')
 
     cmd = args.command
+    cmd_value = getattr(args, '{}_value'.format(cmd))
 
-    logging.info('Processing command {}'.format(cmd))
+    if cmd == 'color':
+        cmd_value = COLORS[cmd_value]
 
-    if cmd == 'state':
-        value = args.state_value
-        payload = {'state': value}
-    elif cmd == 'color':
-        value = args.color_value
-        logging.info('Commanding color {}'.format(value))
-        payload = {'color': COLORS[value]}
+    logging.info('Commanding {}={}'.format(cmd, cmd_value))
+
+    payload = {cmd: cmd_value}
 
     topic = args.topic
     logging.info('Publishing to {} with {}'.format(topic, payload))
-    client.publish(topic, payload)
+    client.publish(topic, str(payload))
 
 def on_message(client, userdata, msg):
     pass
@@ -60,7 +58,16 @@ if __name__ == "__main__":
     state_cmd.add_argument('state_value', choices=['ON', 'OFF'], help='state value')
 
     color_cmd = subparsers.add_parser('color', help='Set solid effect color')
-    color_cmd.add_argument('color_value', choices=['red', 'green', 'blue', 'yello'], help='Color value')
+    color_cmd.add_argument('color_value', choices=['red', 'green', 'blue', 'yellow'], help='Color value')
+
+    effect_cmd = subparsers.add_parser('effect', help='Set the strip effect')
+    effect_cmd.add_argument('effect_value', default='Static', help='Effect name')
+
+    speed_cmd = subparsers.add_parser('speed', help='Set the animation speed')
+    speed_cmd.add_argument('speed_value', help='Animation speed')
+
+    brightness_cmd = subparsers.add_parser('brightness', help='Set light strip brightness')
+    brightness_cmd.add_argument('brightness_value', help='Brightness value')
 
     args = parser.parse_args()
 
