@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:esp-light-controller-cache
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -56,17 +55,6 @@ Wire Wire Line
 Wire Wire Line
 	3150 4050 3150 3950
 $Comp
-L Connector_Generic:Conn_01x03 J1
-U 1 1 5C784B8A
-P 7900 2950
-F 0 "J1" H 7979 2992 50  0000 L CNN
-F 1 "WS2812b" H 7979 2901 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7900 2950 50  0001 C CNN
-F 3 "~" H 7900 2950 50  0001 C CNN
-	1    7900 2950
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR0105
 U 1 1 5C784C4E
 P 7550 2600
@@ -88,14 +76,6 @@ F 3 "" H 7550 3300 50  0001 C CNN
 	1    7550 3300
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7700 3050 7550 3050
-Wire Wire Line
-	7550 3050 7550 3300
-Wire Wire Line
-	7700 2850 7550 2850
-Wire Wire Line
-	7550 2850 7550 2600
 Wire Wire Line
 	3450 3950 3150 3950
 Connection ~ 3150 3950
@@ -156,8 +136,6 @@ $EndComp
 Wire Wire Line
 	6050 2950 6050 3250
 Connection ~ 6050 3250
-Wire Wire Line
-	6700 3050 6700 2950
 $Comp
 L power:+5V #PWR0110
 U 1 1 5C7CD58C
@@ -171,11 +149,6 @@ F 3 "" H 6700 2250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6700 2500 6700 2250
-Wire Wire Line
-	7700 2950 6700 2950
-Connection ~ 6700 2950
-Wire Wire Line
-	6700 2950 6700 2800
 $Comp
 L power:+3.3V #PWR0112
 U 1 1 5C7CF6A7
@@ -190,8 +163,6 @@ $EndComp
 Wire Wire Line
 	5350 3850 6050 3850
 Connection ~ 6050 3850
-NoConn ~ 5350 4050
-NoConn ~ 3450 3750
 Wire Notes Line
 	3000 3200 5800 3200
 Wire Notes Line
@@ -218,7 +189,7 @@ Wire Notes Line
 	8400 2300 7400 2300
 Text Notes 4700 1200 0    50   ~ 0
 Power Supply - Female USB breakout
-Text Notes 3850 4950 0    50   ~ 0
+Text Notes 1550 3950 0    50   ~ 0
 ESP-01\n* CH_PD, RST. GPIO0 - pulled high\n* RX, TX - Not connected
 Text Notes 6000 1950 0    50   ~ 0
 3.3V to 5V Logic Level Shifter
@@ -230,7 +201,7 @@ U 1 1 5F1F746A
 P 3900 1150
 F 0 "J2" H 3957 1617 50  0000 C CNN
 F 1 "USB_B_Micro" H 3957 1526 50  0000 C CNN
-F 2 "Connector_USB:USB_Micro-B_Amphenol_10103594-0001LF_Horizontal" H 4050 1100 50  0001 C CNN
+F 2 "digikey-footprints:USB_Micro_B_Female_1050170001" H 4050 1100 50  0001 C CNN
 F 3 "~" H 4050 1100 50  0001 C CNN
 	1    3900 1150
 	1    0    0    -1  
@@ -337,4 +308,83 @@ F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 6600 3250 50  000
 	1    6600 3250
 	1    0    0    -1  
 $EndComp
+Text Notes 4750 2600 0    50   ~ 0
+3.3V Source
+Wire Notes Line
+	3300 2000 4600 2000
+Wire Notes Line
+	4600 2000 4600 3150
+Wire Notes Line
+	4600 3150 3300 3150
+Wire Notes Line
+	3300 3150 3300 2000
+Wire Notes Line
+	3550 550  4600 550 
+Wire Notes Line
+	4600 550  4600 1950
+Wire Notes Line
+	4600 1950 3550 1950
+Wire Notes Line
+	3550 1950 3550 550 
+$Comp
+L Connector_Generic:Conn_01x02 J3
+U 1 1 5F20E324
+P 4400 5350
+F 0 "J3" V 4272 5430 50  0000 L CNN
+F 1 "Serial" V 4363 5430 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4400 5350 50  0001 C CNN
+F 3 "~" H 4400 5350 50  0001 C CNN
+	1    4400 5350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3450 3750 3300 3750
+Wire Wire Line
+	3300 3750 3300 5000
+Wire Wire Line
+	3300 5000 4300 5000
+Wire Wire Line
+	4300 5000 4300 5150
+Wire Wire Line
+	5350 4050 5350 5000
+Wire Wire Line
+	5350 5000 4400 5000
+Wire Wire Line
+	4400 5000 4400 5150
+Wire Notes Line
+	4050 5050 4750 5050
+Wire Notes Line
+	4750 5050 4750 5500
+Wire Notes Line
+	4750 5500 4050 5500
+Wire Notes Line
+	4050 5500 4050 5050
+Text Notes 4850 5300 0    50   ~ 0
+Serial Connection
+Wire Wire Line
+	6700 2800 6700 3000
+$Comp
+L Connector_Generic:Conn_01x03 J1
+U 1 1 5C784B8A
+P 7950 3000
+F 0 "J1" H 8029 3042 50  0000 L CNN
+F 1 "WS2812b" H 8029 2951 50  0000 L CNN
+F 2 "Connector_JST:JST_XH_S3B-XH-A_1x03_P2.50mm_Horizontal" H 7950 3000 50  0001 C CNN
+F 3 "~" H 7950 3000 50  0001 C CNN
+	1    7950 3000
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	7550 2900 7750 2900
+Wire Wire Line
+	7550 2600 7550 2900
+Wire Wire Line
+	7750 3000 6700 3000
+Connection ~ 6700 3000
+Wire Wire Line
+	6700 3000 6700 3050
+Wire Wire Line
+	7750 3100 7550 3100
+Wire Wire Line
+	7550 3100 7550 3300
 $EndSCHEMATC
