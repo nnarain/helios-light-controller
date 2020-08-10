@@ -2,12 +2,8 @@
 
 [![GitHub release](https://img.shields.io/github/release/nnarain/esp-light-controller.svg)](https://github.com/nnarain/esp-light-controller/releases)
 
-Firmware for an ESP-01 base light strip controller. Compliant with MQTT JSON Lights: https://www.home-assistant.io/components/light.mqtt/
+ESP-01 based light strip controller.
 
-Build
------
-
-This is an Arduino project. Simply open it in the Arduino IDE and upload to the ESP-01 device.
 
 Usage
 -----
