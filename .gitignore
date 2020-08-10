@@ -11,3 +11,5 @@ venv/*
 *.xml
 
 design/esp-light-controller/out/*
+
+test/*
