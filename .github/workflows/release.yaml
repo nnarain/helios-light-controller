@@ -59,6 +59,8 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./kicad/*
+            ./esp-light-controller-build-assets.zip
+            ./bom.csv
+            ./esp-light-controller.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
