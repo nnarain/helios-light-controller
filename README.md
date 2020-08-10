@@ -2,32 +2,51 @@
 
 [![GitHub release](https://img.shields.io/github/release/nnarain/esp-light-controller.svg)](https://github.com/nnarain/esp-light-controller/releases)
 
-Firmware for an ESP-01 base light strip controller. Compliant with MQTT JSON Lights: https://www.home-assistant.io/components/light.mqtt/
+ESP-01 based light strip controller.
 
-Build
------
-
-This is an Arduino project. Simply open it in the Arduino IDE and upload to the ESP-01 device.
 
 Usage
 -----
 
-The device must be configured before it can be used. Configuration occurs through an AT like serial interface.
+This can best be used with [ESPHome](https://esphome.io/). The LED output is on `GPIO2`.
 
-An AT command has the following structure.
+Example config:
 
 ```
-AT+<CMD>[-[ARG1,ARG2,...]]
+esphome:
+  name: livingroom
+  platform: ESP8266
+  board: esp01
+
+wifi:
+  ssid: "<your-ssid>"
+  password: "<wifi-password>"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Livingroom Fallback Hotspot"
+    password: "BhmK1aDsii2b"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+# Example configuration entry
+light:
+  - platform: neopixelbus
+    name: "LivingRoom"
+    type: GRB
+    method: BIT_BANG
+    pin: GPIO2
+    num_leds: 10
+
 ```
-
-| Command | Arguments          | Example                                         |
-| ------- | ------------------ | ----------------------------------------------- |
-| WIFI    | ssid,pass          | AT+WIFI-MyWifi,MyWifiPassword                   |
-| MQTT    | broker,port,prefix | AT+MQTT-192.168.0.10,1883,/home/lights/esplight |
-| LEDS    | count              | AT+LEDS-60                                      |
-| DUMP    |                    | AT+DUMP                                         |
-
-The `DUMP` command dumps the current config to the serial port.
 
 Hardware
 --------

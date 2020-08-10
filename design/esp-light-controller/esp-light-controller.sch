@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -13,43 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Regulator_Linear:LD1117S12TR_SOT223 U1
-U 1 1 5C779D88
-P 3850 2450
-F 0 "U1" H 3850 2692 50  0000 C CNN
-F 1 "LD1117V33" H 3850 2601 50  0000 C CNN
-F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 3850 2650 50  0001 C CNN
-F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000544.pdf" H 3950 2200 50  0001 C CNN
-	1    3850 2450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0101
-U 1 1 5C779DC0
-P 3850 2850
-F 0 "#PWR0101" H 3850 2600 50  0001 C CNN
-F 1 "GND" H 3855 2677 50  0000 C CNN
-F 2 "" H 3850 2850 50  0001 C CNN
-F 3 "" H 3850 2850 50  0001 C CNN
-	1    3850 2850
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0102
-U 1 1 5C779E40
-P 3450 2300
-F 0 "#PWR0102" H 3450 2150 50  0001 C CNN
-F 1 "+5V" H 3465 2473 50  0000 C CNN
-F 2 "" H 3450 2300 50  0001 C CNN
-F 3 "" H 3450 2300 50  0001 C CNN
-	1    3450 2300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4150 2450 4350 2450
-Wire Wire Line
-	3850 2850 3850 2750
 $Comp
 L ESP8266:ESP-01v090 U2
 U 1 1 5C77A165
@@ -92,17 +55,6 @@ Wire Wire Line
 Wire Wire Line
 	3150 4050 3150 3950
 $Comp
-L Connector_Generic:Conn_01x03 J1
-U 1 1 5C784B8A
-P 7900 2950
-F 0 "J1" H 7979 2992 50  0000 L CNN
-F 1 "WS2812b" H 7979 2901 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7900 2950 50  0001 C CNN
-F 3 "~" H 7900 2950 50  0001 C CNN
-	1    7900 2950
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR0105
 U 1 1 5C784C4E
 P 7550 2600
@@ -125,51 +77,6 @@ F 3 "" H 7550 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7700 3050 7550 3050
-Wire Wire Line
-	7550 3050 7550 3300
-Wire Wire Line
-	7700 2850 7550 2850
-Wire Wire Line
-	7550 2850 7550 2600
-$Comp
-L Connector_Generic:Conn_01x04 J2
-U 1 1 5C7850DB
-P 3850 1100
-F 0 "J2" V 3850 1400 50  0000 R CNN
-F 1 "USB" V 3750 1450 50  0000 R CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 3850 1100 50  0001 C CNN
-F 3 "~" H 3850 1100 50  0001 C CNN
-	1    3850 1100
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:+5V #PWR0107
-U 1 1 5C78538F
-P 4250 950
-F 0 "#PWR0107" H 4250 800 50  0001 C CNN
-F 1 "+5V" H 4265 1123 50  0000 C CNN
-F 2 "" H 4250 950 50  0001 C CNN
-F 3 "" H 4250 950 50  0001 C CNN
-	1    4250 950 
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0108
-U 1 1 5C7853C0
-P 3750 1450
-F 0 "#PWR0108" H 3750 1200 50  0001 C CNN
-F 1 "GND" H 3755 1277 50  0000 C CNN
-F 2 "" H 3750 1450 50  0001 C CNN
-F 3 "" H 3750 1450 50  0001 C CNN
-	1    3750 1450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3550 2450 3450 2450
-Wire Wire Line
-	3450 2450 3450 2300
-Wire Wire Line
 	3450 3950 3150 3950
 Connection ~ 3150 3950
 Wire Wire Line
@@ -184,23 +91,12 @@ Wire Wire Line
 Wire Wire Line
 	5450 3950 5450 3550
 $Comp
-L Transistor_FET:2N7000 Q1
-U 1 1 5C7CAA1B
-P 6600 3250
-F 0 "Q1" H 6805 3296 50  0000 L CNN
-F 1 "2N7000" H 6805 3205 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 6800 3175 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 6600 3250 50  0001 L CNN
-	1    6600 3250
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R1
 U 1 1 5C7CAF7C
 P 6050 3600
 F 0 "R1" H 6120 3646 50  0000 L CNN
 F 1 "10k" H 6120 3555 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 5980 3600 50  0001 C CNN
+F 2 "Resistor_SMD:R_0201_0603Metric" V 5980 3600 50  0001 C CNN
 F 3 "~" H 6050 3600 50  0001 C CNN
 	1    6050 3600
 	1    0    0    -1  
@@ -221,7 +117,7 @@ U 1 1 5C7CCA29
 P 6700 2650
 F 0 "R2" H 6770 2696 50  0000 L CNN
 F 1 "10k" H 6770 2605 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 6630 2650 50  0001 C CNN
+F 2 "Resistor_SMD:R_0201_0603Metric" V 6630 2650 50  0001 C CNN
 F 3 "~" H 6700 2650 50  0001 C CNN
 	1    6700 2650
 	1    0    0    -1  
@@ -240,8 +136,6 @@ $EndComp
 Wire Wire Line
 	6050 2950 6050 3250
 Connection ~ 6050 3250
-Wire Wire Line
-	6700 3050 6700 2950
 $Comp
 L power:+5V #PWR0110
 U 1 1 5C7CD58C
@@ -255,24 +149,6 @@ F 3 "" H 6700 2250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6700 2500 6700 2250
-Wire Wire Line
-	7700 2950 6700 2950
-Connection ~ 6700 2950
-Wire Wire Line
-	6700 2950 6700 2800
-$Comp
-L power:+3.3V #PWR0111
-U 1 1 5C7CE7F2
-P 4350 2300
-F 0 "#PWR0111" H 4350 2150 50  0001 C CNN
-F 1 "+3.3V" H 4365 2473 50  0000 C CNN
-F 2 "" H 4350 2300 50  0001 C CNN
-F 3 "" H 4350 2300 50  0001 C CNN
-	1    4350 2300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4350 2450 4350 2300
 $Comp
 L power:+3.3V #PWR0112
 U 1 1 5C7CF6A7
@@ -287,26 +163,6 @@ $EndComp
 Wire Wire Line
 	5350 3850 6050 3850
 Connection ~ 6050 3850
-NoConn ~ 5350 4050
-NoConn ~ 3450 3750
-NoConn ~ 3850 1300
-NoConn ~ 3950 1300
-Wire Notes Line
-	3300 700  4400 700 
-Wire Notes Line
-	4400 700  4400 1800
-Wire Notes Line
-	4400 1800 3300 1800
-Wire Notes Line
-	3300 1800 3300 700 
-Wire Notes Line
-	3300 2000 4500 2000
-Wire Notes Line
-	4500 2000 4500 3100
-Wire Notes Line
-	4500 3100 3300 3100
-Wire Notes Line
-	3300 3100 3300 2000
 Wire Notes Line
 	3000 3200 5800 3200
 Wire Notes Line
@@ -331,22 +187,204 @@ Wire Notes Line
 	8400 3600 8400 2300
 Wire Notes Line
 	8400 2300 7400 2300
-Text Notes 4550 1250 0    50   ~ 0
+Text Notes 4700 1200 0    50   ~ 0
 Power Supply - Female USB breakout
-Text Notes 4600 2600 0    50   ~ 0
-3.3V Source
-Text Notes 3850 4950 0    50   ~ 0
+Text Notes 1550 3950 0    50   ~ 0
 ESP-01\n* CH_PD, RST. GPIO0 - pulled high\n* RX, TX - Not connected
 Text Notes 6000 1950 0    50   ~ 0
 3.3V to 5V Logic Level Shifter
 Text Notes 7450 2250 0    50   ~ 0
 WS2812b JST Connector
+$Comp
+L Connector:USB_B_Micro J2
+U 1 1 5F1F746A
+P 3900 1150
+F 0 "J2" H 3957 1617 50  0000 C CNN
+F 1 "USB_B_Micro" H 3957 1526 50  0000 C CNN
+F 2 "digikey-footprints:USB_Micro_B_Female_1050170001" H 4050 1100 50  0001 C CNN
+F 3 "~" H 4050 1100 50  0001 C CNN
+	1    3900 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0101
+U 1 1 5F1FEDF9
+P 4450 800
+F 0 "#PWR0101" H 4450 650 50  0001 C CNN
+F 1 "+5V" H 4465 973 50  0000 C CNN
+F 2 "" H 4450 800 50  0001 C CNN
+F 3 "" H 4450 800 50  0001 C CNN
+	1    4450 800 
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	4250 950  4250 1400
+	4200 950  4450 950 
 Wire Wire Line
-	4250 1400 4050 1400
+	4450 950  4450 800 
+$Comp
+L power:GND #PWR0102
+U 1 1 5F207C55
+P 3900 1700
+F 0 "#PWR0102" H 3900 1450 50  0001 C CNN
+F 1 "GND" H 3905 1527 50  0000 C CNN
+F 2 "" H 3900 1700 50  0001 C CNN
+F 3 "" H 3900 1700 50  0001 C CNN
+	1    3900 1700
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	4050 1400 4050 1300
+	3800 1550 3800 1700
 Wire Wire Line
-	3750 1450 3750 1300
+	3800 1700 3900 1700
+Wire Wire Line
+	3900 1550 3900 1700
+Connection ~ 3900 1700
+Wire Wire Line
+	4200 1350 4200 1700
+Wire Wire Line
+	4200 1700 3900 1700
+$Comp
+L linear_regulators:AP2138 U1
+U 1 1 5F1F982A
+P 3900 2350
+F 0 "U1" H 3900 2442 50  0000 C CNN
+F 1 "AP2138" H 3900 2351 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 4650 2350 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/AP2138-9.pdf" H 3900 2450 50  0001 C CNN
+	1    3900 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0107
+U 1 1 5F1FC072
+P 3400 2300
+F 0 "#PWR0107" H 3400 2150 50  0001 C CNN
+F 1 "+5V" H 3415 2473 50  0000 C CNN
+F 2 "" H 3400 2300 50  0001 C CNN
+F 3 "" H 3400 2300 50  0001 C CNN
+	1    3400 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0108
+U 1 1 5F1FC461
+P 4450 2300
+F 0 "#PWR0108" H 4450 2150 50  0001 C CNN
+F 1 "+3V3" H 4465 2473 50  0000 C CNN
+F 2 "" H 4450 2300 50  0001 C CNN
+F 3 "" H 4450 2300 50  0001 C CNN
+	1    4450 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0111
+U 1 1 5F1FCC27
+P 3900 2900
+F 0 "#PWR0111" H 3900 2650 50  0001 C CNN
+F 1 "GND" H 3905 2727 50  0000 C CNN
+F 2 "" H 3900 2900 50  0001 C CNN
+F 3 "" H 3900 2900 50  0001 C CNN
+	1    3900 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 2300 3400 2500
+Wire Wire Line
+	3400 2500 3600 2500
+Wire Wire Line
+	4200 2500 4450 2500
+Wire Wire Line
+	4450 2500 4450 2300
+Wire Wire Line
+	3900 2800 3900 2900
+$Comp
+L Transistor_FET:2N7002 Q1
+U 1 1 5F2024CE
+P 6600 3250
+F 0 "Q1" H 6806 3296 50  0000 L CNN
+F 1 "2N7002" H 6806 3205 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 6800 3175 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 6600 3250 50  0001 L CNN
+	1    6600 3250
+	1    0    0    -1  
+$EndComp
+Text Notes 4750 2600 0    50   ~ 0
+3.3V Source
+Wire Notes Line
+	3300 2000 4600 2000
+Wire Notes Line
+	4600 2000 4600 3150
+Wire Notes Line
+	4600 3150 3300 3150
+Wire Notes Line
+	3300 3150 3300 2000
+Wire Notes Line
+	3550 550  4600 550 
+Wire Notes Line
+	4600 550  4600 1950
+Wire Notes Line
+	4600 1950 3550 1950
+Wire Notes Line
+	3550 1950 3550 550 
+$Comp
+L Connector_Generic:Conn_01x02 J3
+U 1 1 5F20E324
+P 4400 5350
+F 0 "J3" V 4272 5430 50  0000 L CNN
+F 1 "Serial" V 4363 5430 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4400 5350 50  0001 C CNN
+F 3 "~" H 4400 5350 50  0001 C CNN
+	1    4400 5350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3450 3750 3300 3750
+Wire Wire Line
+	3300 3750 3300 5000
+Wire Wire Line
+	3300 5000 4300 5000
+Wire Wire Line
+	4300 5000 4300 5150
+Wire Wire Line
+	5350 4050 5350 5000
+Wire Wire Line
+	5350 5000 4400 5000
+Wire Wire Line
+	4400 5000 4400 5150
+Wire Notes Line
+	4050 5050 4750 5050
+Wire Notes Line
+	4750 5050 4750 5500
+Wire Notes Line
+	4750 5500 4050 5500
+Wire Notes Line
+	4050 5500 4050 5050
+Text Notes 4850 5300 0    50   ~ 0
+Serial Connection
+Wire Wire Line
+	6700 2800 6700 3000
+$Comp
+L Connector_Generic:Conn_01x03 J1
+U 1 1 5C784B8A
+P 7950 3000
+F 0 "J1" H 8029 3042 50  0000 L CNN
+F 1 "WS2812b" H 8029 2951 50  0000 L CNN
+F 2 "Connector_JST:JST_XH_S3B-XH-A_1x03_P2.50mm_Horizontal" H 7950 3000 50  0001 C CNN
+F 3 "~" H 7950 3000 50  0001 C CNN
+	1    7950 3000
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	7550 2900 7750 2900
+Wire Wire Line
+	7550 2600 7550 2900
+Wire Wire Line
+	7750 3000 6700 3000
+Connection ~ 6700 3000
+Wire Wire Line
+	6700 3000 6700 3050
+Wire Wire Line
+	7750 3100 7550 3100
+Wire Wire Line
+	7550 3100 7550 3300
 $EndSCHEMATC

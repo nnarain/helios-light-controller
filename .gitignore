@@ -5,8 +5,11 @@ venv/*
 # KiCAD
 *.bak
 *.kicad_pcb-bak
+*.sch-bak
 *.csv
 *.tsv
 *.xml
 
 design/esp-light-controller/out/*
+
+test/*
