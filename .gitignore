@@ -11,5 +11,6 @@ venv/*
 *.xml
 
 design/esp-light-controller/out/*
+design/esp-light-controller/esp-light-controller-backups/*
 
 test/*
