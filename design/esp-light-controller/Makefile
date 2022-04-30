@@ -1,12 +1,29 @@
-MAKEFILE_PATH := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+DOCKER=docker
+KIBOT_IMAGE=setsoft/kicad_auto:dev_k6
 
-# By default, we assume the board is the first thing we find 
-# in the same directory as the Makefile whose name ends in .pro
-# This matches what one would usually find with KiCad
+PRJ_ROOT=/kicad
+PRJ_NAME=esp-light-controller
+CONF_FILE=$(PRJ_ROOT)/$(PRJ_NAME).kibot.yaml
+SCH_FILE=$(PRJ_ROOT)/$(PRJ_NAME).kicad_sch
+PCB_FILE=$(PRJ_ROOT)/$(PRJ_NAME).kicad_pcb
+OUT_DIR=$(PRJ_ROOT)/out
 
-BOARD = $(shell  ls $(MAKEFILE_PATH)/*.pro | xargs -n 1 basename --suffix .pro |head -n 1)
+KIBOT_CMD_PREFIX=$(DOCKER) run --rm -it -v ${CURDIR}:/kicad $(KIBOT_IMAGE) kibot -c $(CONF_FILE) -e $(SCH_FILE) -b $(PCB_FILE) -d $(OUT_DIR) -s all
 
--include $(KICAD_TOOLS_PATH)/etc/rules.mk
+all:
+	$(KIBOT_CMD_PREFIX)
 
-dummy:
-	.PHONY
+fab:
+	$(KIBOT_CMD_PREFIX) jlcpcb_fab
+
+design:
+	$(KIBOT_CMD_PREFIX) design_docs
+
+render:
+	$(KIBOT_CMD_PREFIX) render3d
+
+pcbdraw:
+	$(KIBOT_CMD_PREFIX) pcbdraw_top pcbdraw_bottom
+
+clean:
+	rm -rf $(OUT_DIR)

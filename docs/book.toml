@@ -1,0 +1,15 @@
+[book]
+authors = ["Natesh Narain"]
+language = "en"
+multilingual = false
+src = "src"
+title = "ESP Light Controller"
+
+[preprocessor.file-search]
+files = [
+    {alias = "schematic",     path = "../design/esp-light-controller/out/design/esp-light-controller-schematic.pdf"},
+    {alias = "schematic_svg", path = "../design/esp-light-controller/out/renders/esp-light-controller-schematic.svg"},
+    {alias = "pcb_top",       path = "../design/esp-light-controller/out/renders/esp-light-controller-top.png"},
+    {alias = "pcb_bottom",    path = "../design/esp-light-controller/out/renders/esp-light-controller-bottom.png"},
+    {alias = "ibom",          path = "../design/esp-light-controller/out/html/esp-light-controller-ibom.html"}
+]

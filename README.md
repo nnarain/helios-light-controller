@@ -2,51 +2,12 @@
 
 [![GitHub release](https://img.shields.io/github/release/nnarain/esp-light-controller.svg)](https://github.com/nnarain/esp-light-controller/releases)
 
-ESP-01 based light strip controller.
-
+ESP32 based light strip controller.
 
 Usage
 -----
 
-This can best be used with [ESPHome](https://esphome.io/). The LED output is on `GPIO2`.
-
-Example config:
-
-```
-esphome:
-  name: livingroom
-  platform: ESP8266
-  board: esp01
-
-wifi:
-  ssid: "<your-ssid>"
-  password: "<wifi-password>"
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "Livingroom Fallback Hotspot"
-    password: "BhmK1aDsii2b"
-
-captive_portal:
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-
-ota:
-
-# Example configuration entry
-light:
-  - platform: neopixelbus
-    name: "LivingRoom"
-    type: GRB
-    method: BIT_BANG
-    pin: GPIO2
-    num_leds: 10
-
-```
+TODO
 
 Hardware
 --------

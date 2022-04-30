@@ -1,5 +1,7 @@
 (fp_lib_table
-  (lib (name kicad-ESP8266)(type KiCad)(uri ${KIPRJMOD}/libraries/kicad-ESP8266/ESP8266.pretty)(options "")(descr ""))
-  (lib (name digikey-footprints)(type KiCad)(uri ${KIPRJMOD}/libraries/digikey-kicad-library/digikey-footprints.pretty)(options "")(descr ""))
-  (lib (name symbols)(type KiCad)(uri ${KIPRJMOD}/libraries/kicad-inventory/symbols.pretty)(options "")(descr ""))
+  (lib (name "kicad-ESP8266")(type "KiCad")(uri "${KIPRJMOD}/libraries/kicad-ESP8266/ESP8266.pretty")(options "")(descr ""))
+  (lib (name "digikey-footprints")(type "KiCad")(uri "${KIPRJMOD}/libraries/digikey-kicad-library/digikey-footprints.pretty")(options "")(descr ""))
+  (lib (name "symbols")(type "KiCad")(uri "${KIPRJMOD}/libraries/kicad-inventory/symbols.pretty")(options "")(descr ""))
+  (lib (name "tactile_switches")(type "KiCad")(uri "${KIPRJMOD}/libraries/kicad-inventory/tactile_switches.pretty")(options "")(descr ""))
+  (lib (name "ki-usb-connectors")(type "KiCad")(uri "${KIPRJMOD}/libraries/kicad-inventory/ki-usb-connectors.pretty")(options "")(descr ""))
 )
