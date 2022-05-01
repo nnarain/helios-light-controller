@@ -3295,7 +3295,7 @@
     (property "Datasheet" "https://datasheet.lcsc.com/lcsc/1811061633_Everlight-Elec-17-215-S2C-BJ1K2AX-3T_C95814.pdf" (id 3) (at 96.52 48.26 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "LCSC" "C95814" (id 4) (at 96.52 48.26 90)
+    (property "LCSC" "C434432" (id 4) (at 96.52 48.26 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 04ef0b3a-9d55-49a2-a2ad-80255c77b1af))
