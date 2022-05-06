@@ -7,3 +7,6 @@
 [submodule "design/esp-light-controller/libraries/digikey-kicad-library"]
 	path = design/esp-light-controller/libraries/digikey-kicad-library
 	url = https://github.com/Digi-Key/digikey-kicad-library.git
+[submodule "design/esp-light-controller/libraries/USB-C-Connectors"]
+	path = design/esp-light-controller/libraries/USB-C-Connectors
+	url = https://github.com/nnarain/USB-C-Connectors.git
