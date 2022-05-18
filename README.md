@@ -1,6 +1,7 @@
 # ESP Light Controller
 
 [![GitHub release](https://img.shields.io/github/release/nnarain/esp-light-controller.svg)](https://github.com/nnarain/esp-light-controller/releases)
+[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://nnarain.github.io/esp-light-controller)
 
 ESP32 based light strip controller.
 
