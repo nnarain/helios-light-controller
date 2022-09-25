@@ -3,13 +3,13 @@ authors = ["Natesh Narain"]
 language = "en"
 multilingual = false
 src = "src"
-title = "ESP Light Controller"
+title = "Helios Light Controller"
 
 [preprocessor.file-search]
 files = [
-    {alias = "schematic",     path = "../design/esp-light-controller/out/design/esp-light-controller-schematic.pdf"},
-    {alias = "schematic_svg", path = "../design/esp-light-controller/out/renders/esp-light-controller-schematic.svg"},
-    {alias = "pcb_top",       path = "../design/esp-light-controller/out/renders/esp-light-controller-top.png"},
-    {alias = "pcb_bottom",    path = "../design/esp-light-controller/out/renders/esp-light-controller-bottom.png"},
-    {alias = "ibom",          path = "../design/esp-light-controller/out/html/esp-light-controller-ibom.html"}
+    {alias = "schematic",     path = "../design/esp-light-controller/out/design/esp-light-controller-schematic.pdf",  type = "link"},
+    {alias = "schematic_svg", path = "../design/esp-light-controller/out/renders/esp-light-controller-schematic.svg", type = "image"},
+    {alias = "pcb_top",       path = "../design/esp-light-controller/out/renders/esp-light-controller-top.png",       type = "image"},
+    {alias = "pcb_bottom",    path = "../design/esp-light-controller/out/renders/esp-light-controller-bottom.png",    type = "image"},
+    {alias = "ibom",          path = "../design/esp-light-controller/out/html/esp-light-controller-ibom.html",        type = "link"}
 ]
