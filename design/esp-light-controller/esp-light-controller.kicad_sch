@@ -3400,7 +3400,7 @@
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical" (id 2) (at 225.806 149.098 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "~" (id 3) (at 225.806 149.098 0)
+    (property "Datasheet" "" (id 3) (at 225.806 149.098 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 9e5ebef8-669e-4181-8cf5-52304606da54))
