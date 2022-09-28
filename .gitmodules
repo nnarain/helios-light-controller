@@ -1,12 +1,12 @@
 [submodule "design/esp-light-controller/libraries/kicad-ESP8266"]
-	path = design/esp-light-controller/libraries/kicad-ESP8266
+	path = design/helios-light-controller/libraries/kicad-ESP8266
 	url = https://github.com/nnarain/kicad-ESP8266
 [submodule "design/esp-light-controller/libraries/kicad-inventory"]
-	path = design/esp-light-controller/libraries/kicad-inventory
+	path = design/helios-light-controller/libraries/kicad-inventory
 	url = https://github.com/nnarain/kicad-inventory
 [submodule "design/esp-light-controller/libraries/digikey-kicad-library"]
-	path = design/esp-light-controller/libraries/digikey-kicad-library
+	path = design/helios-light-controller/libraries/digikey-kicad-library
 	url = https://github.com/Digi-Key/digikey-kicad-library.git
 [submodule "design/esp-light-controller/libraries/USB-C-Connectors"]
-	path = design/esp-light-controller/libraries/USB-C-Connectors
+	path = design/helios-light-controller/libraries/USB-C-Connectors
 	url = https://github.com/nnarain/USB-C-Connectors.git
