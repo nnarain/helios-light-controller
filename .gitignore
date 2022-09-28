@@ -11,7 +11,7 @@ venv/*
 *.tsv
 *.xml
 
-design/esp-light-controller/out/*
-design/esp-light-controller/esp-light-controller-backups/*
+design/helios-light-controller/out/*
+design/helios-light-controller/helios-light-controller-backups/*
 
 test/*

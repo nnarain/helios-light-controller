@@ -2,7 +2,7 @@ DOCKER=docker
 KIBOT_IMAGE=setsoft/kicad_auto:dev_k6
 
 PRJ_ROOT=/kicad
-PRJ_NAME=esp-light-controller
+PRJ_NAME=helios-light-controller
 CONF_FILE=$(PRJ_ROOT)/$(PRJ_NAME).kibot.yaml
 SCH_FILE=$(PRJ_ROOT)/$(PRJ_NAME).kicad_sch
 PCB_FILE=$(PRJ_ROOT)/$(PRJ_NAME).kicad_pcb
