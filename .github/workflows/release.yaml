@@ -37,7 +37,7 @@ jobs:
         with:
           mdbook-version: 'latest'
       - run: cargo install --git https://github.com/nnarain/mdbook-file-search
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: output
           path: design/esp-light-controller/out
@@ -54,7 +54,7 @@ jobs:
     needs: [generate-outputs]
 
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: output
       - uses: softprops/action-gh-release@v1
